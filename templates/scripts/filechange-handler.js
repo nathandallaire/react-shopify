@@ -8,7 +8,8 @@ const buildPageData = require("./build/page-data.liquid.js");
 //To avoid showing the build messages on starting up
 let builtCount = 0;
 
-const onFilechangeHandler = () => {
+//Theme template changes handler
+const watchThemeTemplateChanges = () => {
   const watchPath = path.resolve(__dirname, "../theme");
 
   const handleUpdate = async (event, filePath) => {
@@ -33,12 +34,28 @@ const onFilechangeHandler = () => {
     }
 
     if (!nothingBuilt && builtCount > 1) {
-      console.log(builtCount);
       console.log(`Built ${fileName}.`);
     }
   };
 
   chokidar.watch(watchPath).on("all", debounce(handleUpdate, 200));
+};
+
+//Theme template changes handler
+const watchPageDataChanges = () => {
+  const watchPath = path.resolve(__dirname, "../page_data");
+
+  const handleUpdate = async () => {
+    buildPageData();
+  };
+
+  chokidar.watch(watchPath).on("all", debounce(handleUpdate, 200));
+};
+
+//All watchers initialize
+const onFilechangeHandler = () => {
+  watchThemeTemplateChanges();
+  watchPageDataChanges();
 };
 
 module.exports = onFilechangeHandler;

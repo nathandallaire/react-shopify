@@ -5,7 +5,9 @@ This is auto-generated through webpack.
 
 <script>
   window.snippetHtml = {
-          {% capture arrow_html %}{% include 'arrow'  | strip_newlines | rstrip | strip | escape %}{% endcapture %}
-      'arrow': `{{ arrow_html  | strip_newlines | rstrip | strip | escape }}`,
+          {% capture test-snippet_html %}{% include 'test-snippet'  | strip_newlines | rstrip | strip | escape %}{% endcapture %}
+      'test-snippet': `
+        {{ test-snippet_html  | strip_newlines | rstrip | strip | escape }}
+      `,
       }
 </script>

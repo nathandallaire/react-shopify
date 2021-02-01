@@ -7,7 +7,9 @@ This is auto-generated through webpack.
   window.snippetHtml = {
     --@each(it.snippetsToRegister) => snippetName--
       {% capture --snippetName--_html %}{% include '--snippetName--' --it.renderingFilters-- %}{% endcapture %}
-      '--snippetName--': `{{ --snippetName--_html --it.renderingFilters-- }}`,
+      '--snippetName--': `
+        {{ --snippetName--_html --it.renderingFilters-- }}
+      `,
     --/each--
   }
 </script>

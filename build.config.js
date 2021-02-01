@@ -1,6 +1,9 @@
 const THEME_FOLDER = "theme";
 
 const configuration = {
+  /* ====================
+  Bundle settings
+  ==================== */
   bundleName: "meepmoop.js",
   bundleNamePrefix: "bndl", //When cleaning, refer to this to remove (dont change so much)
   distFolder: "dist",
@@ -16,7 +19,7 @@ const configuration = {
   themeAssetsFolder: `${THEME_FOLDER}/assets`,
   themeSnippetsFolder: `${THEME_FOLDER}/snippets`,
   themeLayoutFolder: `${THEME_FOLDER}/layout`,
-  snippetsToRegister: ["arrow"],
+  snippetsToRegister: ["test-snippet"],
   snippetReferencesFilename: "snippet-references.liquid",
   pageDataFilename: "page-data.liquid",
   /* ====================

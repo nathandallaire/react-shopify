@@ -55,6 +55,7 @@ const initiatePageDataSnippetBuild = async () => {
       windowPageDataKey,
       page_keys,
       isMinified: process.env.NODE_ENV !== envKeys.dev,
+      timestamp: Date.now(),
     });
 
     await fs.writeFileSync(
