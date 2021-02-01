@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const renderTemplate = require("../../../utility/render_template.js");
+const renderTemplate = require("../render-template.js");
 const {
   themeLayoutFolder,
   snippetReferencesFilename,

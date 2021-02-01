@@ -1,0 +1,13 @@
+{% comment %}
+DO NOT EDIT FILE
+This is auto-generated through webpack.
+{% endcomment %}
+
+<script>
+  window.snippetHtml = {
+    --@each(it.snippetsToRegister) => snippetName--
+      {% capture --snippetName--_html %}{% include '--snippetName--' --it.renderingFilters-- %}{% endcapture %}
+      '--snippetName--': `{{ --snippetName--_html --it.renderingFilters-- }}`,
+    --/each--
+  }
+</script>

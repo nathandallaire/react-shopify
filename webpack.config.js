@@ -38,9 +38,6 @@ module.exports = async (env, argv) => {
   const isProd = argv.mode === envKeys.prod;
   const port = process.env.WEBPACK_PORT ? process.env.WEBPACK_PORT : 8069;
 
-  //Initial on-change listener
-  onFilechangeHandler();
-
   //Prebuild
   await preBuildInit();
 
@@ -66,6 +63,10 @@ module.exports = async (env, argv) => {
       disableHostCheck: true,
       contentBase: path.resolve(__dirname, distFolder),
       port,
+      after: () => {
+        //Initial on-change listener
+        onFilechangeHandler();
+      },
     },
     resolve: {
       extensions: [".js", ".jsx"],

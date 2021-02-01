@@ -1,4 +1,5 @@
 const fs = require("fs");
+const renderTemplate = require("../render-template");
 const path = require("path");
 const {
   themeSnippetsFolder,
@@ -9,9 +10,8 @@ const {
 const init = async () => {
   let snippetsString = "";
 
+  /*
   snippetsToRegister.forEach((snippetName) => {
-    const renderingFilters = "| strip_newlines | rstrip | strip | escape";
-
     snippetsString += `
       {% capture ${snippetName}_html %}{% include '${snippetName}' ${renderingFilters} %}{% endcapture %}
       ${snippetName}: \`
@@ -29,11 +29,22 @@ const init = async () => {
       window.snippetHtml = {${snippetsString}}
     </script>
   `;
+  */
+  const templatePath = path.resolve(
+    __dirname,
+    `../../theme/snippets/${snippetReferencesFilename}`
+  );
+  const renderingFilters = " | strip_newlines | rstrip | strip | escape";
+  const templateContent = await fs.readFileSync(templatePath, "utf8");
+  const injectedTemplate = renderTemplate(templateContent, {
+    renderingFilters,
+    snippetsToRegister,
+  });
 
   try {
     await fs.writeFileSync(
       `./${themeSnippetsFolder}/${snippetReferencesFilename}`,
-      dataToWrite
+      injectedTemplate
     );
   } catch (err) {
     console.log(err);

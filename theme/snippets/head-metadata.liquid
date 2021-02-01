@@ -10,8 +10,6 @@
       <meta name="description" content="{{ page_description | escape }}{% if current_tags %} {{ 'general.meta.tagged_html' | t: tags: meta_tags | escape }}.{% endif %}{% if current_page != 1 %} {{ 'general.meta.page' | t: page_number: current_page }}.{% endif %}" />
     {% endif %}
 
-    {% include 'head-social-meta-info' %}
-
     {% if collection.previous_product %}
       <link rel="prev" href="{{ collection.previous_product }}">
     {% endif %}

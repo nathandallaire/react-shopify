@@ -1,8 +1,8 @@
 const path = require("path");
 const fs = require("fs");
 const page_keys = require("../../page_data/page_keys");
-const renderTemplate = require("../../../utility/render_template");
-const pageDataSchema = require("../../../utility/schemas/page_data");
+const renderTemplate = require("../render-template");
+const pageDataSchema = require("../../page_data/schema");
 const {
   envKeys,
   themeSnippetsFolder,

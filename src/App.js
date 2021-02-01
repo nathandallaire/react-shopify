@@ -9,8 +9,8 @@ const AnotherComponent = React.lazy(() => import("./OtherComponent2"));
 function MyComponent() {
   return (
     <div>
-      <h1>Test!!</h1>
-      <Suspense fallback={<div>Loae!erdwewweing</div>}>
+      <h1>Tewwes?ewfwewet!!</h1>
+      <Suspense fallback={<div>Loae!erwewdwewweingew</div>}>
         <section>
           <div style={{ width: 40 }}>
             <Snippet snippet="arrow" />
