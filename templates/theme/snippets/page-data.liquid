@@ -1,0 +1,60 @@
+{% comment %}
+DO NOT EDIT
+This file is auto-generated in webpack.
+{% endcomment %}
+
+<script>
+  //Webpage page data
+  window['--it.windowPageDataKey--'] = {};
+</script>
+
+{% capture store_data %}
+
+--@each(it.configArray) => config, index--
+  -- @if (config.key === it.page_keys.GLOBAL)--
+
+      {% comment %}
+      Global settings
+      {% endcomment %}
+
+    --@if (config.externalScripts)--
+      --@each(config.externalScripts) => scriptSrc, index--
+        <script src="--scriptSrc--"></script>
+      --/each--
+    -- /if--
+    <script>
+      //Webpage page data
+      window['--it.windowPageDataKey--'] = {
+        --config.data | safe--
+      }
+    </script>  
+
+  -- #else--  
+    {% if template.name contains "--config.key--" %}
+      <script>console.log("--config.key--")</script>
+      --@if (config.externalScripts)--
+        --@each(config.externalScripts) => scriptSrc, index--
+          <script src="--scriptSrc--"></script>
+        --/each--
+      -- /if--
+
+      --@if (config.data)--
+        <script>
+          window['--it.windowPageDataKey--']['--config.key--'] = {
+            --config.data | safe--
+          }
+        </script>
+      -- /if--
+
+    {% endif %}
+  -- /if--
+--/each--
+
+{% endcapture %}
+
+-- @if (it.isMinified) --
+  {{ store_data | strip_newlines | rstrip | strip }}
+-- #else --
+  {{ store_data }}
+-- /if --
+

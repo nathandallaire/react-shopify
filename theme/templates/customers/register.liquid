@@ -1,0 +1,50 @@
+{% capture register_content %}
+  <div class="registerContent">
+    <div class="sixteen columns clearfix collection_nav register__header">
+      {% if settings.refer_a_friend_enabled and settings.refer_a_friend_register_html != blank %}
+        {{settings.refer_a_friend_register_html}}
+      {% else %}
+        <h1 class="center h3">{{ 'customer.register.title' | t }}</h1>
+      {% endif %}
+    </div>
+    <div id="customer">
+      <!-- Create Customer -->
+      <div id="create-customer">
+
+        {% form 'create_customer' %}
+          {{ form.errors | default_errors }}
+
+          <div id="first_name" class="clearfix large_form">
+            <label for="first_name" class="login">{{ 'customer.register.first_name' | t }}</label>
+            <input type="text" value="" name="customer[first_name]" id="first_name" class="large" size="30" />
+          </div>
+
+          <div id="last_name" class="clearfix large_form">
+            <label for="last_name" class="login">{{ 'customer.register.last_name' | t }}</label>
+            <input type="text" value="" name="customer[last_name]" id="last_name" class="large" size="30" />
+          </div>
+
+          <div id="email" class="clearfix large_form">
+            <label for="email" class="login">{{ 'customer.register.email' | t }}</label>
+            <input type="email" value="" name="customer[email]" id="email" class="large" size="30" />
+          </div>
+
+          <div id="password" class="clearfix large_form">
+            <label for="password" class="login">{{ 'customer.register.password' | t }}</label>
+            <input type="password" value="" name="customer[password]" id="password" class="large password" size="30" />
+          </div>
+
+          <div class="action_bottom text-center">
+            <input class="button register__button" type="submit" value="{{ 'customer.register.sign_up' | t }}" />
+            <p style="padding-top: 15px;">
+              {{ 'customer.register.returning_customer_label' | t }} {{ 'customer.register.sign_in_html' | t | customer_login_link }}
+            </p>
+          </div>
+
+        {% endform %}
+      </div><!-- /#create-customer -->
+    </div>
+  </div>
+{% endcapture %}
+
+{% include 'account-hero' | hero_content: register_content %}

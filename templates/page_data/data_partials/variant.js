@@ -1,0 +1,36 @@
+// https://shopify.dev/docs/themes/liquid/reference/objects/variant
+
+const data = `
+  available: "{{variant.available}}",
+  barcode: "{{variant.barcode}}",
+  compare_at_price: "{{variant.compare_at_price}}",
+  featured_media: "{{variant.featured_media}}",
+  id: "{{variant.id}}",
+  image: "{{variant.image}}",
+  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
+  inventory_management: "{{variant.inventory_management}}",
+  inventory_policy: "{{variant.inventory_policy}}",
+  inventory_quantity: "{{variant.inventory_quantity}}",
+  next_incoming_date: "{{variant.next_incoming_date}}",
+  options: "{{variant.options}}",
+  option1: "{{variant.option1}}",
+  option2: "{{variant.option2}}",
+  option3: "{{variant.option3}}",
+  price: "{{variant.price}}",
+  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
+  requires_selling_plan: "{{variant.requires_selling_plan}}",
+  selected: {% if variant.selected %}true{% else %}false{% endif %},
+  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
+  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
+  sku: "{{variant.sku}}",
+  store_availabilities: "{{variant.store_availabilities}}",
+  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
+  title: "{{variant.title}}",
+  unit_price: "{{variant.unit_price}}",
+  unit_price_measurement: "{{variant.unit_price_measurement}}",
+  url: "{{variant.url}}",
+  weight: "{{variant.weight}}",
+  weight_unit: "{{variant.weight_unit}}",
+`;
+
+module.exports = data;

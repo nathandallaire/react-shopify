@@ -1,0 +1,32 @@
+{%- for link in linklists['all-collections'].links -%} {% comment %} handle must
+be url path supplied from collection specified in linklist {% endcomment %} {%
+assign collection_handle = link.url | remove:shop.url | remove:'collections' |
+remove:'//' %} {% assign collection = collections[collection_handle] %}
+<div
+  class="collection-list__collection clearfix"
+  id="collectionListing-{{ collection_handle }}"
+>
+  <a
+    href="{{ collection.url }}"
+    class="collection-list__collection__hero"
+    {%
+    assign
+    banner_size="938x300"
+    %}
+    data-src="{% include 'collection-banner-image' %}"
+  >
+    <div class="collection-list__collection__hero__title">{{ link.title }}</div>
+  </a>
+  {% comment %} Show first 6 products in collection {% endcomment %} {% assign
+  products = collection.products %} {% assign limit = 6 %} {% assign
+  products_per_row = settings.products_per_row %}
+
+  <div class="collection-list__products">
+    {% include 'product-loop' with settings.collection_sidebar %}
+  </div>
+  {% comment %} Show "View More" button if more than 6 products in collection {%
+  endcomment %} {% if collection.products.size > limit %}
+  <a href="{{ collection.url }}" class="button tiny-thicc">View All</a>
+  {% endif %}
+</div>
+{%- endfor -%}
