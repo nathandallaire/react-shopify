@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import { Snippet } from "./util/liquid";
+//import { Snippet } from "./util/liquid";
 //import { formatMoney } from "./util/shopify";
 import "./styles.scss";
 
@@ -12,9 +12,7 @@ function MyComponent() {
       <h1>Tewwes?ewfwewet!!</h1>
       <Suspense fallback={<div>Loae!erwewdwewweingew</div>}>
         <section>
-          <div style={{ width: 40 }}>
-            <Snippet snippet="arrow" />
-          </div>
+          <div style={{ width: 40 }}>{/* <Snippet snippet="arrow" /> */}</div>
           <OtherComponent />
           <AnotherComponent />
         </section>

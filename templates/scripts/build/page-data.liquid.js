@@ -3,6 +3,7 @@ const fs = require("fs");
 const page_keys = require("../../page_data/page_keys");
 const renderTemplate = require("../render-template");
 const pageDataSchema = require("../../page_data/schema");
+const { requireUncached } = require("../../../scripts/utility");
 const {
   envKeys,
   themeSnippetsFolder,
@@ -10,27 +11,47 @@ const {
   windowPageDataKey,
 } = require("../../../build.config.js");
 
-//global config
-const globalConfig = require("../../page_data/template_data/global");
-
-//config data to build for each page
-const indexConfig = require("../../page_data/template_data/index");
-const productConfig = require("../../page_data/template_data/product");
-const collectionConfig = require("../../page_data/template_data/collection");
-const listCollectionsConfig = require("../../page_data/template_data/list-collections");
-const searchConfig = require("../../page_data/template_data/search");
-
 //Initiate snippet build
 const initiatePageDataSnippetBuild = async () => {
+  //Template path
+  const pageDataPath = "templates/page_data/template_data";
+
+  //global config
+  const globalData = requireUncached(`${pageDataPath}/global.js`);
+
+  //config data to build for each page
+  const indexPageData = requireUncached(`${pageDataPath}/index.js`);
+  const productPageData = requireUncached(`${pageDataPath}/product.js`);
+  const collectionPageData = requireUncached(`${pageDataPath}/collection.js`);
+  const listCollectionsPageData = requireUncached(
+    `${pageDataPath}/list-collections.js`
+  );
+  const searchPageData = requireUncached(`${pageDataPath}/search.js`);
+  const articlePageData = requireUncached(`${pageDataPath}/article.js`);
+  const pagePageData = requireUncached(`${pageDataPath}/page.js`);
+  const blogPageData = requireUncached(`${pageDataPath}/blog.js`);
+
   //Tie data config modules to array
   let configArray = [
-    globalConfig,
-    indexConfig,
-    productConfig,
-    collectionConfig,
-    listCollectionsConfig,
-    searchConfig,
+    globalData,
+    indexPageData,
+    productPageData,
+    collectionPageData,
+    listCollectionsPageData,
+    searchPageData,
+    articlePageData,
+    pagePageData,
+    blogPageData,
   ];
+
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  shuffle(configArray);
 
   //Test each config
   configArray.forEach((config) => {

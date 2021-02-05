@@ -1,18 +1,28 @@
 const buildTheme = require("./build/theme.liquid.js");
 const buildSnippetReferences = require("./build/snippet-references.liquid.js");
 const buildPageData = require("./build/page-data.liquid.js");
+const { buildAllSections } = require("./build/sections.js");
 
 const buildThemeFiles = async () => {
-  //Build snippets register file
-  await buildTheme();
+  try {
+    //Build theme.liquid file
+    await buildTheme();
 
-  //Generate theme.liquid file
-  await buildSnippetReferences();
+    //Generate snippet references snippet
+    await buildSnippetReferences();
 
-  //Build the page data snippet
-  await buildPageData();
+    //Build the page data snippet
+    await buildPageData();
 
-  console.log("\x1b[32m%s\x1b[0m", "✅ Generated theme files.");
+    //Build all sections
+    await buildAllSections();
+
+    //Complete!
+    console.log("\x1b[32m%s\x1b[0m", "✅ Generated theme files.");
+  } catch (err) {
+    console.log(err);
+    process.exit(2);
+  }
 };
 
 module.exports = buildThemeFiles;

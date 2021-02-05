@@ -1,5 +1,5 @@
 const { envKeys } = require("../build.config.js");
-const buildAssets = require("../templates/scripts/build");
+const buildTheme = require("../templates/scripts/build/theme.liquid.js");
 
 const preBuildInit = async () => {
   switch (process.env.NODE_ENV) {
@@ -17,7 +17,13 @@ const preBuildInit = async () => {
       break;
   }
 
-  await buildAssets();
+  try {
+    //Build theme.liquid file
+    await buildTheme();
+  } catch (err) {
+    console.log(err);
+    process.exit(2);
+  }
 };
 
 module.exports = preBuildInit;

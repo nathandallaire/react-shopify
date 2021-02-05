@@ -4,14 +4,29 @@
   in root. {% endcomment %}
   <head>
     {{content_for_header}}
-    {% include 'snippet-references.liquid' %} 
     {% include 'page-data.liquid' %}
     {% include 'head-metadata' %}
     {% include 'head-social-metadata' %}
   </head>
   <body>
-    <div style="display: none !important">{{ content_for_layout }}</div>
+
     <div id="app"></div>
+
+    <style>
+      #shopifyHtml {
+        width: 1px;
+        height: 1px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        opacity: 0;
+      }
+    </style>
+    <div id="shopifyHtml">
+      {{ content_for_layout }}
+      {% include 'snippet-references.liquid' %} 
+    </div>
 
         <script src="http://localhost:9000/bndl.meepmoop.js"></script>
       </body>

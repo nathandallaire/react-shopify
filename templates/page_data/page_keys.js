@@ -25,6 +25,9 @@ const keys = {
   ACTIVATE_ACCOUNT: "activate_account",
   LOGIN: "login",
   REGISTER: "register",
+
+  //Custom
+  TEST: "test",
 };
 
 module.exports = keys;

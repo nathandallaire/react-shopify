@@ -1,9 +1,9 @@
 const chokidar = require("chokidar");
 const path = require("path");
-const debounce = require("lodash/debounce");
 const buildTheme = require("./build/theme.liquid.js");
 const buildSnippetReferences = require("./build/snippet-references.liquid.js");
 const buildPageData = require("./build/page-data.liquid.js");
+const { buildSection } = require("./build/sections.js");
 
 //To avoid showing the build messages on starting up
 let builtCount = 0;
@@ -12,7 +12,7 @@ let builtCount = 0;
 const watchThemeTemplateChanges = () => {
   const watchPath = path.resolve(__dirname, "../theme");
 
-  const handleUpdate = async (event, filePath) => {
+  const handleUpdate = async (filePath) => {
     builtCount++;
     const pathSplit = filePath.split("/").reverse();
     const fileName = pathSplit[0];
@@ -38,7 +38,7 @@ const watchThemeTemplateChanges = () => {
     }
   };
 
-  chokidar.watch(watchPath).on("all", debounce(handleUpdate, 200));
+  chokidar.watch(watchPath).on("change", handleUpdate);
 };
 
 //Theme template changes handler
@@ -49,13 +49,27 @@ const watchPageDataChanges = () => {
     buildPageData();
   };
 
-  chokidar.watch(watchPath).on("all", debounce(handleUpdate, 200));
+  chokidar.watch(watchPath).on("change", handleUpdate);
+};
+
+//Sections template changes handler
+const watchSectionsChange = () => {
+  const watchPath = path.resolve(__dirname, "../page_data/sections");
+
+  const handleUpdate = async (filePath) => {
+    const pathSplit = filePath.split("/").reverse();
+    const sectionName = pathSplit[0];
+    buildSection(sectionName);
+  };
+
+  chokidar.watch(watchPath).on("change", handleUpdate);
 };
 
 //All watchers initialize
 const onFilechangeHandler = () => {
   watchThemeTemplateChanges();
   watchPageDataChanges();
+  watchSectionsChange();
 };
 
 module.exports = onFilechangeHandler;

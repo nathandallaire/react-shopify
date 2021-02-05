@@ -1,0 +1,41 @@
+
+-- @if (it.config) --
+
+  <script>
+    //--it.timestamp--
+
+    if (!window.sections) window.sections = {};
+
+    var sectionKey = '--it.config.name--__{{section.id}}';
+
+    window.sections[sectionKey] = {
+      settings: {
+        --@each(it.config.settings) => setting--
+          '--setting.id--': --setting.data | safe--,
+        --/each--
+      },
+      blocks: {
+        --@each(it.config.blocks) => block--
+          {% assign blocks_to_loop = section.blocks | where: 'type', '--block.type--' %}
+          '--block.type--': [
+            {%- for block in blocks_to_loop -%}
+              {
+                type: "{{block.type | escape}}",
+                --@each(block.settings) => blockSettings--
+                  '--blockSettings.id | safe--': --blockSettings.data | safe--,
+                --/each--
+              },
+            {%- endfor -%}
+          ],
+        --/each--
+      },
+    };
+  </script>
+
+-- /if --
+
+{% schema %}    
+  -- @if (it.config) --
+    --it.json | safe--
+  -- /if --
+{% endschema %}

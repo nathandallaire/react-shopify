@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "NODE_ENV=production webpack --mode production",
-    "clean": "node -e 'require(\"./scripts/clean-assets\")()'",
+    "build:theme": "node -e 'require(\"./templates/scripts/build\")()'",
+    "clean": "node -e 'require(\"./templates/scripts/clean\").cleanAll()'",
     "start": "NODE_ENV=development SERVE_LOCALLY=1 webpack serve --hot"
   },
   "keywords": [],

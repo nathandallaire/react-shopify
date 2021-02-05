@@ -19,6 +19,7 @@ const configuration = {
   themeAssetsFolder: `${THEME_FOLDER}/assets`,
   themeSnippetsFolder: `${THEME_FOLDER}/snippets`,
   themeLayoutFolder: `${THEME_FOLDER}/layout`,
+  themeSectionsFolder: `${THEME_FOLDER}/sections`,
   snippetsToRegister: ["test-snippet"],
   snippetReferencesFilename: "snippet-references.liquid",
   pageDataFilename: "page-data.liquid",

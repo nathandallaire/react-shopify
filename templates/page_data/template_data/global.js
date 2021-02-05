@@ -20,6 +20,7 @@ const data = `
 
 const config = {
   key: page_keys.GLOBAL,
+  externalScripts: [external_scripts.JQUERY, external_scripts.MOMENT],
   data,
 };
 
