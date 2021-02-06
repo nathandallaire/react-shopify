@@ -4,19 +4,32 @@ const collectionDataPartial = require("../data_partials/collection");
 const { dataForEach } = require("../helper");
 
 const data = `
-  ${productDataPartial}
-  ${dataForEach({
-    key: "collections",
-    obj: "collection",
-    arr: "product.collections",
-    data: collectionDataPartial,
-    eachType: "OBJ",
-  })}
+  {% if product %}
+
+    ${productDataPartial}
+    ${dataForEach({
+      key: "collections",
+      obj: "collection",
+      arr: "product.collections",
+      data: collectionDataPartial,
+      eachType: "OBJ",
+    })} 
+    
+  {% endif %}
 `;
 
 const config = {
   key: page_keys.PRODUCT,
   data,
+  sectionPrefix: "1xv",
+  sections: [
+    {
+      section: "slider",
+    },
+    {
+      section: "test",
+    },
+  ],
 };
 
 module.exports = config;

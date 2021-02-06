@@ -2,13 +2,13 @@
 -- @if (it.config) --
 
   <script>
-    //--it.timestamp--
+    /* --it.timestamp-- */
 
-    if (!window.sections) window.sections = {};
+    if (!window.store.sections) window.store.sections = {};
 
     var sectionKey = '--it.config.name--__{{section.id}}';
 
-    window.sections[sectionKey] = {
+    window.store.sections[sectionKey] = {
       settings: {
         --@each(it.config.settings) => setting--
           '--setting.id--': --setting.data | safe--,

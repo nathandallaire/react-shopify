@@ -6,30 +6,9 @@ const {
   snippetReferencesFilename,
   snippetsToRegister,
 } = require("../../../build.config.js");
+const { builtConsoleLog } = require("./utility");
 
 const init = async () => {
-  let snippetsString = "";
-
-  /*
-  snippetsToRegister.forEach((snippetName) => {
-    snippetsString += `
-      {% capture ${snippetName}_html %}{% include '${snippetName}' ${renderingFilters} %}{% endcapture %}
-      ${snippetName}: \`
-        {{ ${snippetName}_html ${renderingFilters} }}
-      \`,
-    `;
-  });
-
-  const dataToWrite = `
-    {% comment %}
-    DO NOT EDIT FILE
-    This is auto-generated through webpack.
-    {% endcomment %}
-    <script>
-      window.snippetHtml = {${snippetsString}}
-    </script>
-  `;
-  */
   const templatePath = path.resolve(
     __dirname,
     `../../theme/snippets/${snippetReferencesFilename}`
@@ -42,10 +21,9 @@ const init = async () => {
   });
 
   try {
-    await fs.writeFileSync(
-      `./${themeSnippetsFolder}/${snippetReferencesFilename}`,
-      injectedTemplate
-    );
+    const filenamePath = `${themeSnippetsFolder}/${snippetReferencesFilename}`;
+    await fs.writeFileSync(`./${filenamePath}`, injectedTemplate);
+    builtConsoleLog(filenamePath);
   } catch (err) {
     console.log(err);
     process.exit(1);

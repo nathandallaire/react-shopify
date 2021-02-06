@@ -4,24 +4,26 @@ const collectionDataPartial = require("../data_partials/collection");
 const productDataPartial = require("../data_partials/product");
 
 const data = `
-  ${dataForEach({
-    key: "collections",
-    obj: "link",
-    arr: "linklists['all-collections'].links",
-    data: `
-      {% assign collection_handle = link.url | remove:shop.url | remove:'collections' | remove:'//' %}
-      {% assign collection = collections[collection_handle] %}
-      ${collectionDataPartial}
-      ${dataForEach({
-        key: "products",
-        obj: "product",
-        arr: "collection.products",
-        data: productDataPartial,
-        eachType: "OBJ",
-      })}
-    `,
-    eachType: "OBJ",
-  })}
+  {% if template.name == 'list-collections' %}
+    ${dataForEach({
+      key: "collections",
+      obj: "link",
+      arr: "linklists['all-collections'].links",
+      data: `
+        {% assign collection_handle = link.url | remove:shop.url | remove:'collections' | remove:'//' %}
+        {% assign collection = collections[collection_handle] %}
+        ${collectionDataPartial}
+        ${dataForEach({
+          key: "products",
+          obj: "product",
+          arr: "collection.products",
+          data: productDataPartial,
+          eachType: "OBJ",
+        })}
+      `,
+      eachType: "OBJ",
+    })}
+  {% endif %}
 `;
 
 const config = {

@@ -3,15 +3,14 @@ const {
   themeSectionsFolder,
   themeSnippetsFolder,
   themeLayoutFolder,
+  themeConfigFolder,
   bundleNamePrefix,
   snippetReferencesFilename,
   pageDataFilename,
 } = require(path.resolve(__dirname, "../../build.config.js"));
 
-//Clean theme.liquid
-const cleanThemeLiquid = async () => {
-  const pathname = `./${themeLayoutFolder}/theme.liquid`;
-
+//Remove Specific File
+const removeSpecificFile = async (pathname) => {
   try {
     //If theme file exists
     if (!(await fs.existsSync(pathname))) return;
@@ -21,6 +20,12 @@ const cleanThemeLiquid = async () => {
     console.error(err);
     process.exit(1);
   }
+};
+
+//Clean theme.liquid
+const cleanThemeLiquid = async () => {
+  const pathname = `./${themeLayoutFolder}/theme.liquid`;
+  await removeSpecificFile(pathname);
 };
 
 //Clean snippets folder
@@ -55,7 +60,7 @@ const cleanSections = async () => {
 //Loop through all assets and if contains bundlename, remove
 const cleanAssets = async () => {
   try {
-    await fs.readdirSync(`./${themeAssetsFolder}`).forEach(async (fileName) => {
+    await fs.readdirSync(`./${themeConfigFolder}`).forEach(async (fileName) => {
       if (fileName.includes(bundleNamePrefix)) {
         try {
           await fs.unlinkSync(`./${themeAssetsFolder}/${fileName}`);
@@ -71,6 +76,12 @@ const cleanAssets = async () => {
   }
 };
 
+//Clean settings_schema.json
+const cleanSettingsSchema = async () => {
+  const pathname = `./${themeConfigFolder}/settings_schema.json`;
+  await removeSpecificFile(pathname);
+};
+
 //Clean all
 const cleanAll = async () => {
   try {
@@ -78,6 +89,7 @@ const cleanAll = async () => {
     await cleanSnippets();
     await cleanSections();
     await cleanAssets();
+    await cleanSettingsSchema();
 
     console.log("\x1b[32m%s\x1b[0m", "🍆 Cleaned assets!");
   } catch (err) {

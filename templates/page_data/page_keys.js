@@ -1,6 +1,5 @@
 /* ======================================
-Keys correspond to template name 
-(if contained in template name)
+Keys correspond to template name  
 ====================================== */
 
 const keys = {
@@ -13,7 +12,6 @@ const keys = {
   CUSTOMERS: "customers",
   PAGE: "page",
   BLOG: "blog",
-  GIFT_CARD: "gift_card",
   PASSWORD: "password",
   CART: "cart",
   INDEX: "index",

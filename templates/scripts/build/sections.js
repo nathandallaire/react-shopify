@@ -1,21 +1,26 @@
 const path = require("path");
 const fs = require("fs");
+const decache = require("decache");
 const renderTemplate = require("../render-template");
 const { themeSectionsFolder } = require("../../../build.config.js");
+const templateName = `TEMPLATE.liquid`;
 const templatePath = path.resolve(
   __dirname,
-  `../../theme/sections/section.liquid`
+  `../../theme/sections/${templateName}`
 );
+const sectionTemplatesDir = "../../theme/sections";
+const {
+  getFilenameWithoutExt,
+  getSectionName,
+  getPageSectionsArray,
+  getPagesConfig,
+  builtConsoleLog,
+} = require("./utility");
 
-const getFilenameWithoutExt = (filename) => {
-  if (!filename.includes(".")) return filename;
-
-  const split = filename.split(".");
-  return split[0];
-};
-
-const buildSection = async (sectionName) => {
-  const dataPath = `../../page_data/sections/${sectionName}`;
+const buildSection = async (options) => {
+  const { sectionName, outputName, buildForTemplate } = options;
+  const dataPath = `${sectionTemplatesDir}/${sectionName}`;
+  decache(dataPath);
   const config = require(dataPath);
   const sectionNameWithoutExt = getFilenameWithoutExt(sectionName);
 
@@ -79,40 +84,136 @@ const buildSection = async (sectionName) => {
     const templateContent = await fs.readFileSync(templatePath, "utf8");
 
     //Write to the file
-    const writeToFile = async (filenameWithoutExt, isHomepage) => {
+    const writeToFile = async (filenameOutput, isHomepage) => {
       const injectedTemplate = renderTemplate(templateContent, {
         config,
         json: isHomepage ? json : otherPagesSchemaJSON,
         timestamp: Date.now(),
       });
 
-      await fs.writeFileSync(
-        `./${themeSectionsFolder}/${filenameWithoutExt}${sectionNameWithoutExt}.liquid`,
-        injectedTemplate
-      );
+      const filePathname = `${themeSectionsFolder}/${filenameOutput}.liquid`;
+
+      await fs.writeFileSync(`./${filePathname}`, injectedTemplate);
+
+      builtConsoleLog(filePathname);
     };
 
-    //Write as global/homepage
-    writeToFile("", true);
+    const filename = `${sectionNameWithoutExt}`;
+    const pagesConfig = getPagesConfig();
+    const pagesConfigurationArray = [...Object.values(pagesConfig)];
 
-    //If the section is used on multiple pages
-    if (config.pages) {
-      config.pages.forEach(async (page) => {
-        writeToFile(`${page}-`, false);
+    /* =======================================
+    1. Build for specific template
+    -  Return after for efficiency/upload sake.
+    -  This is used only when page template changes
+    ======================================= */
+    if (buildForTemplate) {
+      let pageSpecificBuilds = [];
+
+      pagesConfigurationArray.forEach((pageConfig) => {
+        if (buildForTemplate !== pageConfig.key) return;
+
+        pageSpecificBuilds = getPageSectionsArray({
+          pageConfig,
+          specificSection: sectionName,
+          ignoreGlobal: true,
+        });
       });
+
+      //Build out sections
+      pageSpecificBuilds.forEach(async (outputName) => {
+        if (!outputName) return;
+        await writeToFile(outputName, false);
+      });
+
+      //WE'RE DONE HERE
+      return;
     }
+
+    /* =======================================
+    2. Build global template on section change
+    ======================================= */
+    await writeToFile(filename, true);
+
+    /* =======================================
+    3. Build specific templates on section change
+    ======================================= */
+    pagesConfigurationArray.forEach(async (pageConfig) => {
+      if (!pageConfig.sections) return;
+
+      pageConfig.sections.forEach(async (sectionObject) => {
+        if (sectionNameWithoutExt !== sectionObject.section) return;
+        if (sectionObject.global) return;
+        if (!pageConfig.sectionPrefix)
+          return console.log(`No sectionPrefix for template ${pageConfig.key}`);
+
+        const filename = getSectionName(
+          pageConfig.sectionPrefix,
+          sectionObject.section
+        );
+        await writeToFile(filename, false);
+      });
+    });
   } catch (err) {
     console.log(err);
     process.exit(2);
   }
 };
 
+const buildPageSpecificSections = async (pageTemplate) => {
+  const pages = getPagesConfig();
+  const pageObject = pages[pageTemplate];
+
+  if (!pageObject) {
+    console.log(`No template "${pageTemplate}" returned in getPagesConfig()`);
+    return process.exit(2);
+  }
+
+  if (!pageObject.sections) return;
+
+  pageObject.sections.forEach(async (sectionObject) => {
+    //Section prefix required check if not global
+    if (!sectionObject.global && !pageObject.sectionPrefix) {
+      console.log(
+        `No sectionPrefix supplied for ${pageObject.key} when requesting page-specific section`
+      );
+      return process.exit(2);
+    }
+
+    //If page-specific, create
+    if (!sectionObject.global) {
+      await buildSection({
+        sectionName: `${sectionObject.section}.js`,
+        outputName: getSectionName(
+          pageObject.sectionPrefix,
+          sectionObject.section
+        ),
+        buildForTemplate: pageTemplate,
+      });
+    }
+  });
+};
+
+const buildAllPageSections = async () => {
+  const pagesConfig = getPagesConfig();
+  const configArray = [...Object.values(pagesConfig)];
+
+  configArray.forEach(async (pageDataObject) => {
+    await buildPageSpecificSections(pageDataObject.key);
+  });
+};
+
 const buildAllSections = async () => {
-  const sectionsPath = path.resolve(__dirname, "../../page_data/sections");
+  const sectionsPath = path.resolve(__dirname, sectionTemplatesDir);
+  await buildAllPageSections();
 
   await fs.readdirSync(sectionsPath).forEach(async (fileName) => {
+    if (fileName === templateName) return;
+
     try {
-      await buildSection(fileName);
+      await buildSection({
+        sectionName: fileName,
+      });
     } catch (err) {
       console.error(err);
       process.exit(1);
@@ -123,4 +224,5 @@ const buildAllSections = async () => {
 module.exports = {
   buildSection,
   buildAllSections,
+  buildPageSpecificSections,
 };

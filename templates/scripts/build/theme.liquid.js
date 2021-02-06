@@ -11,6 +11,7 @@ const {
 const {
   getBundleFilenameWithoutExtension,
 } = require("../../../scripts/post-build");
+const { builtConsoleLog } = require("./utility");
 
 const generateThemeLiquid = async () => {
   const themeFilename = "theme.liquid";
@@ -32,10 +33,10 @@ const generateThemeLiquid = async () => {
       unixTimestamp,
     });
 
-    await fs.writeFileSync(
-      `./${themeLayoutFolder}/${themeFilename}`,
-      injectedTemplate
-    );
+    const filenamePath = `${themeLayoutFolder}/${themeFilename}`;
+    await fs.writeFileSync(`./${filenamePath}`, injectedTemplate);
+
+    builtConsoleLog(filenamePath);
   } catch (err) {
     console.log(err);
     process.exit(2);

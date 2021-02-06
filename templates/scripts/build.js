@@ -1,6 +1,7 @@
 const buildTheme = require("./build/theme.liquid.js");
 const buildSnippetReferences = require("./build/snippet-references.liquid.js");
-const buildPageData = require("./build/page-data.liquid.js");
+const { buildPageData } = require("./build/page-data.liquid.js");
+const buildSettingsSchema = require("./build/settings_schema.json.js");
 const { buildAllSections } = require("./build/sections.js");
 
 const buildThemeFiles = async () => {
@@ -16,6 +17,9 @@ const buildThemeFiles = async () => {
 
     //Build all sections
     await buildAllSections();
+
+    //Build settings schema
+    await buildSettingsSchema();
 
     //Complete!
     console.log("\x1b[32m%s\x1b[0m", "✅ Generated theme files.");

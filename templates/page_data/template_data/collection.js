@@ -4,14 +4,16 @@ const collectionDataPartial = require("../data_partials/collection");
 const { dataForEach } = require("../helper");
 
 const data = `
-  ${collectionDataPartial}
-  ${dataForEach({
-    key: "products",
-    obj: "product",
-    arr: "collection.products",
-    data: productDataPartial,
-    eachType: "OBJ",
-  })}
+  {% if collection %}
+    ${collectionDataPartial}
+    ${dataForEach({
+      key: "products",
+      obj: "product",
+      arr: "collection.products",
+      data: productDataPartial,
+      eachType: "OBJ",
+    })}
+  {% endif %}
 `;
 
 const config = {

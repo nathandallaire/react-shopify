@@ -1,11 +1,1 @@
-[
-  {
-    "name": "theme_info",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Webpack, Sucka!"
-      }
-    ]
-  }
-]
+[{"name":"theme_info","settings":[{"type":"header","content":"Webpackboi"}]},{"name":"Colors","settings":[{"type":"color","label":"What?","id":"color","default":"#ffffff"}]}]

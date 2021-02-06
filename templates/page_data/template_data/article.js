@@ -2,7 +2,9 @@ const page_keys = require("../page_keys.js");
 const articleDataPartial = require("../data_partials/article");
 
 const data = `
-  ${articleDataPartial}
+  {% if article %}
+    ${articleDataPartial}
+  {% endif %}
 `;
 
 const config = {

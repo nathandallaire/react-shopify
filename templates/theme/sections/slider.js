@@ -1,9 +1,8 @@
-const sectionCategoryKeys = require("../section_category_keys");
-const pageKeys = require("../page_keys");
+const sectionCategoryKeys = require("../../page_data/section_category_keys");
+const pageKeys = require("../../page_data/page_keys");
 
 const schema = {
   name: "Slider",
-  pages: [pageKeys.TEST],
   presets: [
     {
       name: "Slider",
@@ -14,7 +13,7 @@ const schema = {
     {
       type: "checkbox",
       id: "enabled",
-      label: "Enabled!?",
+      label: "Enaererrr!wwww?",
       default: false,
       data: `{{ section.settings.enabled }}`,
     },

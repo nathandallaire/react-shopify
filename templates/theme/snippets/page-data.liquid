@@ -4,53 +4,33 @@ This file is auto-generated in webpack.
 {% endcomment %}
 
 <script>
-  //--it.timestamp--
-  //Webpage page data
-  window['--it.windowPageDataKey--'] = {};
+  /* --it.timestamp-- */ 
 </script>
 
 {% capture store_data %}
 
 --@each(it.configArray) => config, index--
-  -- @if (config.key === it.page_keys.GLOBAL)--
+ 
+  --@if (config.externalScripts)--
+    --@each(config.externalScripts) => scriptSrc, index--
+      <script src="--scriptSrc--"></script>
+    --/each--
+  -- /if--
 
-      {% comment %}
-      Global settings
-      {% endcomment %}
-
-    --@if (config.externalScripts)--
-      --@each(config.externalScripts) => scriptSrc, index--
-        <script src="--scriptSrc--"></script>
-      --/each--
-    -- /if--
+  --@if (config.data)--
     <script>
-      //Webpage page data
-      window['--it.windowPageDataKey--'] = {
+      window['--it.windowPageDataKey--']['--config.key--'] = {
         --config.data | safe--
       }
-    </script>  
-
-  -- #else--  
-    {% if template.name contains "--config.key--" %}
-      <script>console.log("--config.key-- --it.timestamp--")</script>
-      --@if (config.externalScripts)--
-        --@each(config.externalScripts) => scriptSrc, index--
-          <script src="--scriptSrc--"></script>
-        --/each--
-      -- /if--
-
-      --@if (config.data)--
-        <script>
-          window['--it.windowPageDataKey--']['--config.key--'] = {
-            --config.data | safe--
-          }
-
-          console.log(window['--it.windowPageDataKey--']['--config.key--']);
-        </script>
-      -- /if--
-
-    {% endif %}
+    </script>
   -- /if--
+
+  --@if (config.sectionList)--
+    --@each(config.sectionList) => section--
+      {% section '--section--' %}
+    --/each--
+  -- /if--
+
 --/each--
 
 {% endcapture %}
