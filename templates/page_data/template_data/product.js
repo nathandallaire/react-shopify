@@ -13,8 +13,8 @@ const data = `
       arr: "product.collections",
       data: collectionDataPartial,
       eachType: "OBJ",
-    })} 
-    
+    })}  
+     
   {% endif %}
 `;
 

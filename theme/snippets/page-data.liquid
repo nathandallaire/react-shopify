@@ -4,31 +4,233 @@ This file is auto-generated in webpack.
 {% endcomment %}
 
 <script>
-  /* 1612659048113 */ 
+  /* 1612659310565 */ 
 </script>
 
 {% capture store_data %}
 
 
-      {% if template.name == 'search' %}
+  
+                        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+              
+              <script>
+          window['store']['global'] = {
+            
+  currency: {
+    {% assign testPrice =  100 | money %}
+    {% assign symbolArr = testPrice | split: '1' %}
+    {% assign symbol = symbolArr[0] %}
+    currencySymbol: "{{ symbol }}", 
+  },
+  shop: {
+    
+  address: {{shop.address | json}},
+  name: "{{shop.name}}",
+  currency: {{shop.currency | json}},
+  customer_accounts_enabled: "{{shop.customer_accounts_enabled}}",
+  customer_accounts_optional: "{{shop.customer_accounts_optional}}",
+  description: "{{shop.description}}",
+  domain: "{{shop.domain}}",
+  email: "{{shop.email}}",
+ 
+  },
+  customer: {
+      
+  accepts_marketing: "{{customer.accepts_marketing}}",
+  addresses: "{{customer.addresses}}",
+  addresses_count: "{{customer.addresses_count}}",
+  default_address: "{{customer.default_address}}",
+  email: "{{customer.email}}",
+  first_name: "{{customer.first_name}}",
+  has_account: "{{customer.has_account}}",
+  id: "{{customer.id}}",
+  last_name: "{{customer.last_name}}",
+  last_order: "{{customer.last_order}}",
+  name: "{{customer.name}}",
+  orders: [{% for order in customer.orders %}"{{ order.id }}"{{unless forloop.last}},{{forloop.last}}{% endfor %}],
+  orders_count: "{{customer.orders_count}}",
+  phone: "{{customer.phone}}",
+  tags: [
+    {% for tag in customer.tags %}
+      '{{tag}}',
+    {% endfor %}
+  ],
+  tax_exempt: "{{customer.tax_exempt}}",
+  total_spent: "{{customer.total_spent}}",
+
+  },
+  cart: {
+    
+  attributes: {{cart.attributes | json}},
+  cart_level_discount_applications: "{{cart.cart_level_discount_applications}}",
+  cart_level_discount_applications: [
+    {% for discount_application in cart.cart_level_discount_applications %}
+      {
+  target_selection: "{{discount_application.target_selection}}",
+  target_type: "{{discount_application.target_type}}",
+  title: "{{discount_application.title | escape}}",
+  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
+  type: "{{discount_application.type | escape }}",
+  value: "{{discount_application.value}}",
+  value_type: "{{discount_application.value_type}}",
+},
+    {% endfor %}
+  ],
+  currency: {
+    {% assign origCurrency = currency %}
+    {% assign currency = cart.currency %}
+    
+  name: "{{currency.name | escape}}",
+  iso_code: "{{currency.iso_code | escape}}",
+  symbol: "{{currency.symbol | escape}}",
+
+    {% assign currency = origCurrency %} 
+  },
+  discount_applications: [
+    {% for discount_application in cart.discount_applications %}
+      {
+  target_selection: "{{discount_application.target_selection}}",
+  target_type: "{{discount_application.target_type}}",
+  title: "{{discount_application.title | escape}}",
+  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
+  type: "{{discount_application.type | escape }}",
+  value: "{{discount_application.value}}",
+  value_type: "{{discount_application.value_type}}",
+},
+    {% endfor %}
+  ],
+  item_count: "{{cart.item_count}}",
+  items: [
+    {% for line_item in cart.items %}
+      {
+  discount_allocations: [
+    {% for discount_allocation in line_item.discount_allocations %}
+      {
+      amount: "{{discount_allocation.amount}}",
+      discount_application: {
+        {% assign discount_application = discount_allocation.discount_application %}
+        
+  target_selection: "{{discount_application.target_selection}}",
+  target_type: "{{discount_application.target_type}}",
+  title: "{{discount_application.title | escape}}",
+  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
+  type: "{{discount_application.type | escape }}",
+  value: "{{discount_application.value}}",
+  value_type: "{{discount_application.value_type}}",
+
+      },
+    },
+    {% endfor %}
+  ],
+  final_line_price: "{{line_item.final_line_price}}",
+  final_price: "{{line_item.final_price}}",
+  fulfillment_service: "{{line_item.fulfillment_service | escape}}",
+  gift_card: {{ line_item.gift_card }},
+  grams: "{{line_item.grams}}",
+  image: "{{ line_item.image | img_url: '100x100' | img_tag }}",
+  key: "{{line_item.key}}",
+  line_level_discount_allocations: [
+    {% for discount_allocation in line_item.line_level_discount_allocations %}
+      {
+      amount: "{{discount_allocation.amount}}",
+      discount_application: {
+        {% assign discount_application = discount_allocation.discount_application %}
+        
+  target_selection: "{{discount_application.target_selection}}",
+  target_type: "{{discount_application.target_type}}",
+  title: "{{discount_application.title | escape}}",
+  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
+  type: "{{discount_application.type | escape }}",
+  value: "{{discount_application.value}}",
+  value_type: "{{discount_application.value_type}}",
+
+      },
+    },
+    {% endfor %}
+  ],
+  line_level_total_discount: "{{line_item.line_level_total_discount}}",
+  message: "{{line_item.message | strip_newlines | escape}}",
+  options_with_values: [
+    {% for product_option in product.product.options_with_values %}
+      {
+      name: product_option.name,
+      values: [
+    {% for value in product_option.values %}
+      '{{value}}',
+    {% endfor %}
+  ],
+    },
+    {% endfor %}
+  ],
+  original_line_price: "{{line_item.original_line_price}}",
+  original_price: "{{line_item.original_price}}",
+  product_id: "{{line_item.product_id}}",
+  properties: [
+    {% for property in line_item.properties %}
+      '{{property}}',
+    {% endfor %}
+  ],
+  quantity: "{{line_item.quantity}}",
+  requires_shipping: {{line_item.requires_shipping}},
+  sku: "{{line_item.sku}}",
+  successfully_fulfilled_quantity: "{{line_item.successfully_fulfilled_quantity}}",
+  taxable: {{line_item.taxable}},
+  title: "{{line_item.title | escape}}",
+  unit_price: "{{line_item.unit_price}}",
+  unit_price_measurement: "{{line_item.unit_price_measurement}}",
+  url: "{{line_item.url}}",
+  variant: {{line_item.variant}},
+  variant_id: "{{line_item.variant_id}}",
+  vendor: "{{line_item.vendor}}",
+  id: "{{line_item.id}}",
+},
+    {% endfor %}
+  ],
+  items_subtotal_price: "{{cart.items_subtotal_price}}",
+  note: "{{cart.note | strip_newlines | escape}}",
+  original_total_price: "{{cart.original_total_price}}",
+  total_discount: "{{cart.total_discount}}",
+  total_price: "{{cart.total_price}}",
+  total_weight: "{{cart.total_weight}}",
+
+  },
+  template: "{{template.name | escape}}",
+          }
+        </script> 
+      
+      
+      
+  
+
+      {% if template.name == 'index' %}
   
       
               <script>
-          window['store']['search'] = {
+          window['store']['index'] = {
             
-  {% if search %}
-    {% assign search_pagination = 12 %}
-    {% paginate search.results by search_pagination %}
+  {% if template == 'index' %}
+    title: "Home!",
+    titties: "ok!",
+    test: "OK!",
+  {% endif %}
+          }
+        </script> 
+      
+      
+      
+      {% endif %}
+  
 
-      performed: {% if search.performed %}true{% else %}false{% endif %},
-      results: "{{search.results}}",
-      results: [
-    {% for item in search.results %}
-      {
-          {% unless item.object_type == 'article' %}
-            type: 'PRODUCT',
-            {% assign product = item %}
+      {% if template.name == 'product' %}
+  
+      
+              <script>
+          window['store']['product'] = {
             
+  {% if product %}
+
+    
   available: "{{product.available | escape}}",
   compare_at_price: "{{product.compare_at_price | escape}}",
   compare_at_price_max: {{product.compare_at_price_max | escape}},
@@ -198,87 +400,291 @@ This file is auto-generated in webpack.
     {% endfor %}
   ],
 
-          {% else %}
-            type: 'ARTICLE',
-            {% assign article = item %}
-            
-  author: "{{article.author}}",
-  comments: "{{article.comments}}",
-  comments_count: "{{article.comments_count}}",
-  comments_enabled: "{{article.comments_enabled}}",
-  comment_post_url: "{{article.comment_post_url}}",
-  content: "{{article.content | strip_newlines | rstrip | strip | escape}}",
-  created_at: "{{article.created_at}}",
-  excerpt: "{{article.excerpt | strip_newlines | rstrip | strip | escape}}",
-  excerpt_or_content: "{{article.excerpt_or_content | strip_newlines | rstrip | strip | escape}}",
-  handle: "{{article.handle}}",
-  id: "{{article.id}}",
-  image: "{{article.image}}",
-  moderated: "{{article.moderated}}",
-  published_at: "{{article.published_at}}",
-  tags: [
-    {% for tag in article.tags %}
+    collections: [
+    {% for collection in product.collections %}
+      {
+  all_products_count: "{{collection.all_products_count}}",
+  all_tags: [
+    {% for tag in collection.all_tags %}
       '{{tag}}',
     {% endfor %}
   ],
-  title: "{{article.title}}",
-  updated_at: "{{article.updated_at}}",
-  url: "{{article.url}}",
-  user: "{{article.user}}",
-
-          {% endunless %}
-        },
+  all_types: [
+    {% for type in collection.all_types %}
+      '{{type}}',
     {% endfor %}
   ],
-      results_count: '{{search.results_count}}',
-      terms: "{{search.terms}}",
-      types: "{{search.types}}",
-
-    {% endpaginate %}
+  all_vendors: "{{collection.all_vendors}}",
+  current_type: "{{collection.current_type}}",
+  current_vendor: "{{collection.current_vendor}}",
+  default_sort_by: "{{collection.default_sort_by}}",
+  description: "{{collection.description | strip_newlines | rstrip | strip | escape}}",
+  handle: "{{collection.handle}}",
+  id: "{{collection.id}}",
+  image: "{{collection.image}}",
+  next_product: "{{collection.next_product}}",
+  previous_product: "{{collection.previous_product}}",
+  products_count: "{{collection.products_count}}",
+  published_at: "{{collection.published_at}}",
+  sort_by: "{{collection.sort_by}}",
+  sort_options: [
+    {% for option in collection.sort_options %}
+      {
+      value: "{{option.value}}",
+      name: "{{option.name}}",
+    },
+    {% endfor %}
+  ],
+  template_suffix: "{{collection.template_suffix}}",
+  title: "{{collection.title}}",
+  tags: [
+    {% for tag in collection.tags %}
+      '{{tag}}',
+    {% endfor %}
+  ],
+},
+    {% endfor %}
+  ],  
+     
   {% endif %}
           }
+        </script> 
+      
+              <script>
+          window.store.global.sectionPrefix = 'prd';
         </script>
       
-      
-      
+                        {% section 'prd-payner' %}
+                  {% section 'test' %}
+              
       {% endif %}
   
 
-      {% if template.name == 'article' %}
+      {% if template.name == 'collection' %}
   
       
               <script>
-          window['store']['article'] = {
+          window['store']['collection'] = {
             
-  {% if article %}
+  {% if collection %}
     
-  author: "{{article.author}}",
-  comments: "{{article.comments}}",
-  comments_count: "{{article.comments_count}}",
-  comments_enabled: "{{article.comments_enabled}}",
-  comment_post_url: "{{article.comment_post_url}}",
-  content: "{{article.content | strip_newlines | rstrip | strip | escape}}",
-  created_at: "{{article.created_at}}",
-  excerpt: "{{article.excerpt | strip_newlines | rstrip | strip | escape}}",
-  excerpt_or_content: "{{article.excerpt_or_content | strip_newlines | rstrip | strip | escape}}",
-  handle: "{{article.handle}}",
-  id: "{{article.id}}",
-  image: "{{article.image}}",
-  moderated: "{{article.moderated}}",
-  published_at: "{{article.published_at}}",
-  tags: [
-    {% for tag in article.tags %}
+  all_products_count: "{{collection.all_products_count}}",
+  all_tags: [
+    {% for tag in collection.all_tags %}
       '{{tag}}',
     {% endfor %}
   ],
-  title: "{{article.title}}",
-  updated_at: "{{article.updated_at}}",
-  url: "{{article.url}}",
-  user: "{{article.user}}",
+  all_types: [
+    {% for type in collection.all_types %}
+      '{{type}}',
+    {% endfor %}
+  ],
+  all_vendors: "{{collection.all_vendors}}",
+  current_type: "{{collection.current_type}}",
+  current_vendor: "{{collection.current_vendor}}",
+  default_sort_by: "{{collection.default_sort_by}}",
+  description: "{{collection.description | strip_newlines | rstrip | strip | escape}}",
+  handle: "{{collection.handle}}",
+  id: "{{collection.id}}",
+  image: "{{collection.image}}",
+  next_product: "{{collection.next_product}}",
+  previous_product: "{{collection.previous_product}}",
+  products_count: "{{collection.products_count}}",
+  published_at: "{{collection.published_at}}",
+  sort_by: "{{collection.sort_by}}",
+  sort_options: [
+    {% for option in collection.sort_options %}
+      {
+      value: "{{option.value}}",
+      name: "{{option.name}}",
+    },
+    {% endfor %}
+  ],
+  template_suffix: "{{collection.template_suffix}}",
+  title: "{{collection.title}}",
+  tags: [
+    {% for tag in collection.tags %}
+      '{{tag}}',
+    {% endfor %}
+  ],
 
+    products: [
+    {% for product in collection.products %}
+      {
+  available: "{{product.available | escape}}",
+  compare_at_price: "{{product.compare_at_price | escape}}",
+  compare_at_price_max: {{product.compare_at_price_max | escape}},
+  compare_at_price_min: {{product.compare_at_price_min | escape}},
+  compare_at_price_varies: {{product.compare_at_price_varies | escape}},
+  content: "{{product.content | strip_newlines | rstrip | strip | escape}}",
+  created_at: "{{product.created_at | escape}}",
+  description: "{{product.description | strip_newlines | rstrip | strip | escape}}",
+  featured_image: "{{product.featured_image}}",
+  featured_media: "{{product.featured_media}}",
+  handle: "{{product.handle}}",
+  has_only_default_variant: "{{product.has_only_default_variant}}",
+  id: "{{product.id}}",
+  images: "{{product.images}}",
+  media: "{{product.media}}",
+  options: [
+    {% for option in product.options %}
+      '{{option}}',
+    {% endfor %}
+  ],
+  options_by_name: {
+    {% for option in product.options %}
+      '{{option}}': [
+    {% for _option in product.options_by_name[{{option}}].values %}
+      '{{_option}}',
+    {% endfor %}
+  ],
+    {% endfor %}
+  },
+  options_with_values: [
+    {% for product_option in product.product.options_with_values %}
+      {
+      name: product_option.name,
+      values: [
+    {% for value in product_option.values %}
+      '{{value}}',
+    {% endfor %}
+  ],
+    },
+    {% endfor %}
+  ],
+  price: {{product.price}},
+  price_max: {{product.price_max}},
+  price_min: {{product.price_min}},
+  price_varies: {{product.price_varies}},
+  published_at: "{{product.published_at}}",
+  requires_selling_plan: "{{product.requires_selling_plan}}",
+  selected_variant: "{{product.selected_variant}}",
+  selected_of_first_available_selling_plan_allocation: "{{product.selected_of_first_available_selling_plan_allocation}}",
+  selected_selling_plan: "{{product.selected_selling_plan}}",
+  selected_selling_plan_allocation: "{{product.selected_selling_plan_allocation}}",
+  selling_plan_groups: "{{product.selling_plan_groups}}",
+  tags: [
+    {% for tag in product.tags %}
+      '{{tag}}',
+    {% endfor %}
+  ],
+  template_suffix: "{{product.template_suffix}}",
+  title: "{{product.title}}",
+  type: "{{product.type}}",
+  url: "{{product.url}}",
+  variants: "{{product.variants}}",
+  first_available_variant: {
+    {% assign variant = product.first_available_variant %}
+    
+  available: "{{variant.available}}",
+  barcode: "{{variant.barcode}}",
+  compare_at_price: "{{variant.compare_at_price}}",
+  featured_media: "{{variant.featured_media}}",
+  id: "{{variant.id}}",
+  image: "{{variant.image}}",
+  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
+  inventory_management: "{{variant.inventory_management}}",
+  inventory_policy: "{{variant.inventory_policy}}",
+  inventory_quantity: "{{variant.inventory_quantity}}",
+  next_incoming_date: "{{variant.next_incoming_date}}",
+  options: "{{variant.options}}",
+  option1: "{{variant.option1}}",
+  option2: "{{variant.option2}}",
+  option3: "{{variant.option3}}",
+  price: "{{variant.price}}",
+  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
+  requires_selling_plan: "{{variant.requires_selling_plan}}",
+  selected: {% if variant.selected %}true{% else %}false{% endif %},
+  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
+  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
+  sku: "{{variant.sku}}",
+  store_availabilities: "{{variant.store_availabilities}}",
+  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
+  title: "{{variant.title}}",
+  unit_price: "{{variant.unit_price}}",
+  unit_price_measurement: "{{variant.unit_price_measurement}}",
+  url: "{{variant.url}}",
+  weight: "{{variant.weight}}",
+  weight_unit: "{{variant.weight_unit}}",
+
+  },
+  selected_or_first_available_variant: {
+    {% assign variant = product.selected_or_first_available_variant %}
+    
+  available: "{{variant.available}}",
+  barcode: "{{variant.barcode}}",
+  compare_at_price: "{{variant.compare_at_price}}",
+  featured_media: "{{variant.featured_media}}",
+  id: "{{variant.id}}",
+  image: "{{variant.image}}",
+  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
+  inventory_management: "{{variant.inventory_management}}",
+  inventory_policy: "{{variant.inventory_policy}}",
+  inventory_quantity: "{{variant.inventory_quantity}}",
+  next_incoming_date: "{{variant.next_incoming_date}}",
+  options: "{{variant.options}}",
+  option1: "{{variant.option1}}",
+  option2: "{{variant.option2}}",
+  option3: "{{variant.option3}}",
+  price: "{{variant.price}}",
+  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
+  requires_selling_plan: "{{variant.requires_selling_plan}}",
+  selected: {% if variant.selected %}true{% else %}false{% endif %},
+  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
+  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
+  sku: "{{variant.sku}}",
+  store_availabilities: "{{variant.store_availabilities}}",
+  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
+  title: "{{variant.title}}",
+  unit_price: "{{variant.unit_price}}",
+  unit_price_measurement: "{{variant.unit_price_measurement}}",
+  url: "{{variant.url}}",
+  weight: "{{variant.weight}}",
+  weight_unit: "{{variant.weight_unit}}",
+
+  },
+  variants: [
+    {% for variant in product.variants %}
+      {
+  available: "{{variant.available}}",
+  barcode: "{{variant.barcode}}",
+  compare_at_price: "{{variant.compare_at_price}}",
+  featured_media: "{{variant.featured_media}}",
+  id: "{{variant.id}}",
+  image: "{{variant.image}}",
+  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
+  inventory_management: "{{variant.inventory_management}}",
+  inventory_policy: "{{variant.inventory_policy}}",
+  inventory_quantity: "{{variant.inventory_quantity}}",
+  next_incoming_date: "{{variant.next_incoming_date}}",
+  options: "{{variant.options}}",
+  option1: "{{variant.option1}}",
+  option2: "{{variant.option2}}",
+  option3: "{{variant.option3}}",
+  price: "{{variant.price}}",
+  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
+  requires_selling_plan: "{{variant.requires_selling_plan}}",
+  selected: {% if variant.selected %}true{% else %}false{% endif %},
+  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
+  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
+  sku: "{{variant.sku}}",
+  store_availabilities: "{{variant.store_availabilities}}",
+  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
+  title: "{{variant.title}}",
+  unit_price: "{{variant.unit_price}}",
+  unit_price_measurement: "{{variant.unit_price_measurement}}",
+  url: "{{variant.url}}",
+  weight: "{{variant.weight}}",
+  weight_unit: "{{variant.weight_unit}}",
+},
+    {% endfor %}
+  ],
+},
+    {% endfor %}
+  ],
   {% endif %}
           }
-        </script>
+        </script> 
       
       
       
@@ -517,7 +923,308 @@ This file is auto-generated in webpack.
   ],
   {% endif %}
           }
-        </script>
+        </script> 
+      
+      
+      
+      {% endif %}
+  
+
+      {% if template.name == 'search' %}
+  
+      
+              <script>
+          window['store']['search'] = {
+            
+  {% if search %}
+    {% assign search_pagination = 12 %}
+    {% paginate search.results by search_pagination %}
+
+      performed: {% if search.performed %}true{% else %}false{% endif %},
+      results: "{{search.results}}",
+      results: [
+    {% for item in search.results %}
+      {
+          {% unless item.object_type == 'article' %}
+            type: 'PRODUCT',
+            {% assign product = item %}
+            
+  available: "{{product.available | escape}}",
+  compare_at_price: "{{product.compare_at_price | escape}}",
+  compare_at_price_max: {{product.compare_at_price_max | escape}},
+  compare_at_price_min: {{product.compare_at_price_min | escape}},
+  compare_at_price_varies: {{product.compare_at_price_varies | escape}},
+  content: "{{product.content | strip_newlines | rstrip | strip | escape}}",
+  created_at: "{{product.created_at | escape}}",
+  description: "{{product.description | strip_newlines | rstrip | strip | escape}}",
+  featured_image: "{{product.featured_image}}",
+  featured_media: "{{product.featured_media}}",
+  handle: "{{product.handle}}",
+  has_only_default_variant: "{{product.has_only_default_variant}}",
+  id: "{{product.id}}",
+  images: "{{product.images}}",
+  media: "{{product.media}}",
+  options: [
+    {% for option in product.options %}
+      '{{option}}',
+    {% endfor %}
+  ],
+  options_by_name: {
+    {% for option in product.options %}
+      '{{option}}': [
+    {% for _option in product.options_by_name[{{option}}].values %}
+      '{{_option}}',
+    {% endfor %}
+  ],
+    {% endfor %}
+  },
+  options_with_values: [
+    {% for product_option in product.product.options_with_values %}
+      {
+      name: product_option.name,
+      values: [
+    {% for value in product_option.values %}
+      '{{value}}',
+    {% endfor %}
+  ],
+    },
+    {% endfor %}
+  ],
+  price: {{product.price}},
+  price_max: {{product.price_max}},
+  price_min: {{product.price_min}},
+  price_varies: {{product.price_varies}},
+  published_at: "{{product.published_at}}",
+  requires_selling_plan: "{{product.requires_selling_plan}}",
+  selected_variant: "{{product.selected_variant}}",
+  selected_of_first_available_selling_plan_allocation: "{{product.selected_of_first_available_selling_plan_allocation}}",
+  selected_selling_plan: "{{product.selected_selling_plan}}",
+  selected_selling_plan_allocation: "{{product.selected_selling_plan_allocation}}",
+  selling_plan_groups: "{{product.selling_plan_groups}}",
+  tags: [
+    {% for tag in product.tags %}
+      '{{tag}}',
+    {% endfor %}
+  ],
+  template_suffix: "{{product.template_suffix}}",
+  title: "{{product.title}}",
+  type: "{{product.type}}",
+  url: "{{product.url}}",
+  variants: "{{product.variants}}",
+  first_available_variant: {
+    {% assign variant = product.first_available_variant %}
+    
+  available: "{{variant.available}}",
+  barcode: "{{variant.barcode}}",
+  compare_at_price: "{{variant.compare_at_price}}",
+  featured_media: "{{variant.featured_media}}",
+  id: "{{variant.id}}",
+  image: "{{variant.image}}",
+  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
+  inventory_management: "{{variant.inventory_management}}",
+  inventory_policy: "{{variant.inventory_policy}}",
+  inventory_quantity: "{{variant.inventory_quantity}}",
+  next_incoming_date: "{{variant.next_incoming_date}}",
+  options: "{{variant.options}}",
+  option1: "{{variant.option1}}",
+  option2: "{{variant.option2}}",
+  option3: "{{variant.option3}}",
+  price: "{{variant.price}}",
+  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
+  requires_selling_plan: "{{variant.requires_selling_plan}}",
+  selected: {% if variant.selected %}true{% else %}false{% endif %},
+  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
+  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
+  sku: "{{variant.sku}}",
+  store_availabilities: "{{variant.store_availabilities}}",
+  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
+  title: "{{variant.title}}",
+  unit_price: "{{variant.unit_price}}",
+  unit_price_measurement: "{{variant.unit_price_measurement}}",
+  url: "{{variant.url}}",
+  weight: "{{variant.weight}}",
+  weight_unit: "{{variant.weight_unit}}",
+
+  },
+  selected_or_first_available_variant: {
+    {% assign variant = product.selected_or_first_available_variant %}
+    
+  available: "{{variant.available}}",
+  barcode: "{{variant.barcode}}",
+  compare_at_price: "{{variant.compare_at_price}}",
+  featured_media: "{{variant.featured_media}}",
+  id: "{{variant.id}}",
+  image: "{{variant.image}}",
+  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
+  inventory_management: "{{variant.inventory_management}}",
+  inventory_policy: "{{variant.inventory_policy}}",
+  inventory_quantity: "{{variant.inventory_quantity}}",
+  next_incoming_date: "{{variant.next_incoming_date}}",
+  options: "{{variant.options}}",
+  option1: "{{variant.option1}}",
+  option2: "{{variant.option2}}",
+  option3: "{{variant.option3}}",
+  price: "{{variant.price}}",
+  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
+  requires_selling_plan: "{{variant.requires_selling_plan}}",
+  selected: {% if variant.selected %}true{% else %}false{% endif %},
+  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
+  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
+  sku: "{{variant.sku}}",
+  store_availabilities: "{{variant.store_availabilities}}",
+  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
+  title: "{{variant.title}}",
+  unit_price: "{{variant.unit_price}}",
+  unit_price_measurement: "{{variant.unit_price_measurement}}",
+  url: "{{variant.url}}",
+  weight: "{{variant.weight}}",
+  weight_unit: "{{variant.weight_unit}}",
+
+  },
+  variants: [
+    {% for variant in product.variants %}
+      {
+  available: "{{variant.available}}",
+  barcode: "{{variant.barcode}}",
+  compare_at_price: "{{variant.compare_at_price}}",
+  featured_media: "{{variant.featured_media}}",
+  id: "{{variant.id}}",
+  image: "{{variant.image}}",
+  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
+  inventory_management: "{{variant.inventory_management}}",
+  inventory_policy: "{{variant.inventory_policy}}",
+  inventory_quantity: "{{variant.inventory_quantity}}",
+  next_incoming_date: "{{variant.next_incoming_date}}",
+  options: "{{variant.options}}",
+  option1: "{{variant.option1}}",
+  option2: "{{variant.option2}}",
+  option3: "{{variant.option3}}",
+  price: "{{variant.price}}",
+  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
+  requires_selling_plan: "{{variant.requires_selling_plan}}",
+  selected: {% if variant.selected %}true{% else %}false{% endif %},
+  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
+  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
+  sku: "{{variant.sku}}",
+  store_availabilities: "{{variant.store_availabilities}}",
+  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
+  title: "{{variant.title}}",
+  unit_price: "{{variant.unit_price}}",
+  unit_price_measurement: "{{variant.unit_price_measurement}}",
+  url: "{{variant.url}}",
+  weight: "{{variant.weight}}",
+  weight_unit: "{{variant.weight_unit}}",
+},
+    {% endfor %}
+  ],
+
+          {% else %}
+            type: 'ARTICLE',
+            {% assign article = item %}
+            
+  author: "{{article.author}}",
+  comments: "{{article.comments}}",
+  comments_count: "{{article.comments_count}}",
+  comments_enabled: "{{article.comments_enabled}}",
+  comment_post_url: "{{article.comment_post_url}}",
+  content: "{{article.content | strip_newlines | rstrip | strip | escape}}",
+  created_at: "{{article.created_at}}",
+  excerpt: "{{article.excerpt | strip_newlines | rstrip | strip | escape}}",
+  excerpt_or_content: "{{article.excerpt_or_content | strip_newlines | rstrip | strip | escape}}",
+  handle: "{{article.handle}}",
+  id: "{{article.id}}",
+  image: "{{article.image}}",
+  moderated: "{{article.moderated}}",
+  published_at: "{{article.published_at}}",
+  tags: [
+    {% for tag in article.tags %}
+      '{{tag}}',
+    {% endfor %}
+  ],
+  title: "{{article.title}}",
+  updated_at: "{{article.updated_at}}",
+  url: "{{article.url}}",
+  user: "{{article.user}}",
+
+          {% endunless %}
+        },
+    {% endfor %}
+  ],
+      results_count: '{{search.results_count}}',
+      terms: "{{search.terms}}",
+      types: "{{search.types}}",
+
+    {% endpaginate %}
+  {% endif %}
+          }
+        </script> 
+      
+      
+      
+      {% endif %}
+  
+
+      {% if template.name == 'article' %}
+  
+      
+              <script>
+          window['store']['article'] = {
+            
+  {% if article %}
+    
+  author: "{{article.author}}",
+  comments: "{{article.comments}}",
+  comments_count: "{{article.comments_count}}",
+  comments_enabled: "{{article.comments_enabled}}",
+  comment_post_url: "{{article.comment_post_url}}",
+  content: "{{article.content | strip_newlines | rstrip | strip | escape}}",
+  created_at: "{{article.created_at}}",
+  excerpt: "{{article.excerpt | strip_newlines | rstrip | strip | escape}}",
+  excerpt_or_content: "{{article.excerpt_or_content | strip_newlines | rstrip | strip | escape}}",
+  handle: "{{article.handle}}",
+  id: "{{article.id}}",
+  image: "{{article.image}}",
+  moderated: "{{article.moderated}}",
+  published_at: "{{article.published_at}}",
+  tags: [
+    {% for tag in article.tags %}
+      '{{tag}}',
+    {% endfor %}
+  ],
+  title: "{{article.title}}",
+  updated_at: "{{article.updated_at}}",
+  url: "{{article.url}}",
+  user: "{{article.user}}",
+
+  {% endif %}
+          }
+        </script> 
+      
+      
+      
+      {% endif %}
+  
+
+      {% if template.name == 'page' %}
+  
+      
+              <script>
+          window['store']['page'] = {
+            
+  {% if page %}
+    
+  author: "{{page.author}}",
+  content: "{{page.content | strip_newlines | rstrip | strip | escape}}",
+  handle: "{{page.handle}}",
+  id: "{{page.id}}",
+  published_at: "{{page.published_at}}",
+  template_suffix: "{{page.template_suffix}}",
+  title: "{{page.title | escape}}",
+  url: "{{page.url}}",
+
+  {% endif %}
+          }
+        </script> 
       
       
       
@@ -592,714 +1299,7 @@ This file is auto-generated in webpack.
 
   {% endif %}
           }
-        </script>
-      
-      
-      
-      {% endif %}
-  
-
-      {% if template.name == 'page' %}
-  
-      
-              <script>
-          window['store']['page'] = {
-            
-  {% if page %}
-    
-  author: "{{page.author}}",
-  content: "{{page.content | strip_newlines | rstrip | strip | escape}}",
-  handle: "{{page.handle}}",
-  id: "{{page.id}}",
-  published_at: "{{page.published_at}}",
-  template_suffix: "{{page.template_suffix}}",
-  title: "{{page.title | escape}}",
-  url: "{{page.url}}",
-
-  {% endif %}
-          }
-        </script>
-      
-      
-      
-      {% endif %}
-  
-
-  
-                        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-              
-              <script>
-          window['store']['global'] = {
-            
-  currency: {
-    {% assign testPrice =  100 | money %}
-    {% assign symbolArr = testPrice | split: '1' %}
-    {% assign symbol = symbolArr[0] %}
-    currencySymbol: "{{ symbol }}", 
-  },
-  shop: {
-    
-  address: {{shop.address | json}},
-  name: "{{shop.name}}",
-  currency: {{shop.currency | json}},
-  customer_accounts_enabled: "{{shop.customer_accounts_enabled}}",
-  customer_accounts_optional: "{{shop.customer_accounts_optional}}",
-  description: "{{shop.description}}",
-  domain: "{{shop.domain}}",
-  email: "{{shop.email}}",
- 
-  },
-  customer: {
-      
-  accepts_marketing: "{{customer.accepts_marketing}}",
-  addresses: "{{customer.addresses}}",
-  addresses_count: "{{customer.addresses_count}}",
-  default_address: "{{customer.default_address}}",
-  email: "{{customer.email}}",
-  first_name: "{{customer.first_name}}",
-  has_account: "{{customer.has_account}}",
-  id: "{{customer.id}}",
-  last_name: "{{customer.last_name}}",
-  last_order: "{{customer.last_order}}",
-  name: "{{customer.name}}",
-  orders: [{% for order in customer.orders %}"{{ order.id }}"{{unless forloop.last}},{{forloop.last}}{% endfor %}],
-  orders_count: "{{customer.orders_count}}",
-  phone: "{{customer.phone}}",
-  tags: [
-    {% for tag in customer.tags %}
-      '{{tag}}',
-    {% endfor %}
-  ],
-  tax_exempt: "{{customer.tax_exempt}}",
-  total_spent: "{{customer.total_spent}}",
-
-  },
-  cart: {
-    
-  attributes: {{cart.attributes | json}},
-  cart_level_discount_applications: "{{cart.cart_level_discount_applications}}",
-  cart_level_discount_applications: [
-    {% for discount_application in cart.cart_level_discount_applications %}
-      {
-  target_selection: "{{discount_application.target_selection}}",
-  target_type: "{{discount_application.target_type}}",
-  title: "{{discount_application.title | escape}}",
-  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
-  type: "{{discount_application.type | escape }}",
-  value: "{{discount_application.value}}",
-  value_type: "{{discount_application.value_type}}",
-},
-    {% endfor %}
-  ],
-  currency: {
-    {% assign origCurrency = currency %}
-    {% assign currency = cart.currency %}
-    
-  name: "{{currency.name | escape}}",
-  iso_code: "{{currency.iso_code | escape}}",
-  symbol: "{{currency.symbol | escape}}",
-
-    {% assign currency = origCurrency %} 
-  },
-  discount_applications: [
-    {% for discount_application in cart.discount_applications %}
-      {
-  target_selection: "{{discount_application.target_selection}}",
-  target_type: "{{discount_application.target_type}}",
-  title: "{{discount_application.title | escape}}",
-  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
-  type: "{{discount_application.type | escape }}",
-  value: "{{discount_application.value}}",
-  value_type: "{{discount_application.value_type}}",
-},
-    {% endfor %}
-  ],
-  item_count: "{{cart.item_count}}",
-  items: [
-    {% for line_item in cart.items %}
-      {
-  discount_allocations: [
-    {% for discount_allocation in line_item.discount_allocations %}
-      {
-      amount: "{{discount_allocation.amount}}",
-      discount_application: {
-        {% assign discount_application = discount_allocation.discount_application %}
-        
-  target_selection: "{{discount_application.target_selection}}",
-  target_type: "{{discount_application.target_type}}",
-  title: "{{discount_application.title | escape}}",
-  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
-  type: "{{discount_application.type | escape }}",
-  value: "{{discount_application.value}}",
-  value_type: "{{discount_application.value_type}}",
-
-      },
-    },
-    {% endfor %}
-  ],
-  final_line_price: "{{line_item.final_line_price}}",
-  final_price: "{{line_item.final_price}}",
-  fulfillment_service: "{{line_item.fulfillment_service | escape}}",
-  gift_card: {{ line_item.gift_card }},
-  grams: "{{line_item.grams}}",
-  image: "{{ line_item.image | img_url: '100x100' | img_tag }}",
-  key: "{{line_item.key}}",
-  line_level_discount_allocations: [
-    {% for discount_allocation in line_item.line_level_discount_allocations %}
-      {
-      amount: "{{discount_allocation.amount}}",
-      discount_application: {
-        {% assign discount_application = discount_allocation.discount_application %}
-        
-  target_selection: "{{discount_application.target_selection}}",
-  target_type: "{{discount_application.target_type}}",
-  title: "{{discount_application.title | escape}}",
-  total_allocated_amount: "{{discount_application.total_allocated_amount}}",
-  type: "{{discount_application.type | escape }}",
-  value: "{{discount_application.value}}",
-  value_type: "{{discount_application.value_type}}",
-
-      },
-    },
-    {% endfor %}
-  ],
-  line_level_total_discount: "{{line_item.line_level_total_discount}}",
-  message: "{{line_item.message | strip_newlines | escape}}",
-  options_with_values: [
-    {% for product_option in product.product.options_with_values %}
-      {
-      name: product_option.name,
-      values: [
-    {% for value in product_option.values %}
-      '{{value}}',
-    {% endfor %}
-  ],
-    },
-    {% endfor %}
-  ],
-  original_line_price: "{{line_item.original_line_price}}",
-  original_price: "{{line_item.original_price}}",
-  product_id: "{{line_item.product_id}}",
-  properties: [
-    {% for property in line_item.properties %}
-      '{{property}}',
-    {% endfor %}
-  ],
-  quantity: "{{line_item.quantity}}",
-  requires_shipping: {{line_item.requires_shipping}},
-  sku: "{{line_item.sku}}",
-  successfully_fulfilled_quantity: "{{line_item.successfully_fulfilled_quantity}}",
-  taxable: {{line_item.taxable}},
-  title: "{{line_item.title | escape}}",
-  unit_price: "{{line_item.unit_price}}",
-  unit_price_measurement: "{{line_item.unit_price_measurement}}",
-  url: "{{line_item.url}}",
-  variant: {{line_item.variant}},
-  variant_id: "{{line_item.variant_id}}",
-  vendor: "{{line_item.vendor}}",
-  id: "{{line_item.id}}",
-},
-    {% endfor %}
-  ],
-  items_subtotal_price: "{{cart.items_subtotal_price}}",
-  note: "{{cart.note | strip_newlines | escape}}",
-  original_total_price: "{{cart.original_total_price}}",
-  total_discount: "{{cart.total_discount}}",
-  total_price: "{{cart.total_price}}",
-  total_weight: "{{cart.total_weight}}",
-
-  },
-  template: "{{template.name | escape}}",
-          }
-        </script>
-      
-      
-      
-  
-
-      {% if template.name == 'product' %}
-  
-      
-              <script>
-          window['store']['product'] = {
-            
-  {% if product %}
-
-    
-  available: "{{product.available | escape}}",
-  compare_at_price: "{{product.compare_at_price | escape}}",
-  compare_at_price_max: {{product.compare_at_price_max | escape}},
-  compare_at_price_min: {{product.compare_at_price_min | escape}},
-  compare_at_price_varies: {{product.compare_at_price_varies | escape}},
-  content: "{{product.content | strip_newlines | rstrip | strip | escape}}",
-  created_at: "{{product.created_at | escape}}",
-  description: "{{product.description | strip_newlines | rstrip | strip | escape}}",
-  featured_image: "{{product.featured_image}}",
-  featured_media: "{{product.featured_media}}",
-  handle: "{{product.handle}}",
-  has_only_default_variant: "{{product.has_only_default_variant}}",
-  id: "{{product.id}}",
-  images: "{{product.images}}",
-  media: "{{product.media}}",
-  options: [
-    {% for option in product.options %}
-      '{{option}}',
-    {% endfor %}
-  ],
-  options_by_name: {
-    {% for option in product.options %}
-      '{{option}}': [
-    {% for _option in product.options_by_name[{{option}}].values %}
-      '{{_option}}',
-    {% endfor %}
-  ],
-    {% endfor %}
-  },
-  options_with_values: [
-    {% for product_option in product.product.options_with_values %}
-      {
-      name: product_option.name,
-      values: [
-    {% for value in product_option.values %}
-      '{{value}}',
-    {% endfor %}
-  ],
-    },
-    {% endfor %}
-  ],
-  price: {{product.price}},
-  price_max: {{product.price_max}},
-  price_min: {{product.price_min}},
-  price_varies: {{product.price_varies}},
-  published_at: "{{product.published_at}}",
-  requires_selling_plan: "{{product.requires_selling_plan}}",
-  selected_variant: "{{product.selected_variant}}",
-  selected_of_first_available_selling_plan_allocation: "{{product.selected_of_first_available_selling_plan_allocation}}",
-  selected_selling_plan: "{{product.selected_selling_plan}}",
-  selected_selling_plan_allocation: "{{product.selected_selling_plan_allocation}}",
-  selling_plan_groups: "{{product.selling_plan_groups}}",
-  tags: [
-    {% for tag in product.tags %}
-      '{{tag}}',
-    {% endfor %}
-  ],
-  template_suffix: "{{product.template_suffix}}",
-  title: "{{product.title}}",
-  type: "{{product.type}}",
-  url: "{{product.url}}",
-  variants: "{{product.variants}}",
-  first_available_variant: {
-    {% assign variant = product.first_available_variant %}
-    
-  available: "{{variant.available}}",
-  barcode: "{{variant.barcode}}",
-  compare_at_price: "{{variant.compare_at_price}}",
-  featured_media: "{{variant.featured_media}}",
-  id: "{{variant.id}}",
-  image: "{{variant.image}}",
-  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
-  inventory_management: "{{variant.inventory_management}}",
-  inventory_policy: "{{variant.inventory_policy}}",
-  inventory_quantity: "{{variant.inventory_quantity}}",
-  next_incoming_date: "{{variant.next_incoming_date}}",
-  options: "{{variant.options}}",
-  option1: "{{variant.option1}}",
-  option2: "{{variant.option2}}",
-  option3: "{{variant.option3}}",
-  price: "{{variant.price}}",
-  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
-  requires_selling_plan: "{{variant.requires_selling_plan}}",
-  selected: {% if variant.selected %}true{% else %}false{% endif %},
-  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
-  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
-  sku: "{{variant.sku}}",
-  store_availabilities: "{{variant.store_availabilities}}",
-  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
-  title: "{{variant.title}}",
-  unit_price: "{{variant.unit_price}}",
-  unit_price_measurement: "{{variant.unit_price_measurement}}",
-  url: "{{variant.url}}",
-  weight: "{{variant.weight}}",
-  weight_unit: "{{variant.weight_unit}}",
-
-  },
-  selected_or_first_available_variant: {
-    {% assign variant = product.selected_or_first_available_variant %}
-    
-  available: "{{variant.available}}",
-  barcode: "{{variant.barcode}}",
-  compare_at_price: "{{variant.compare_at_price}}",
-  featured_media: "{{variant.featured_media}}",
-  id: "{{variant.id}}",
-  image: "{{variant.image}}",
-  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
-  inventory_management: "{{variant.inventory_management}}",
-  inventory_policy: "{{variant.inventory_policy}}",
-  inventory_quantity: "{{variant.inventory_quantity}}",
-  next_incoming_date: "{{variant.next_incoming_date}}",
-  options: "{{variant.options}}",
-  option1: "{{variant.option1}}",
-  option2: "{{variant.option2}}",
-  option3: "{{variant.option3}}",
-  price: "{{variant.price}}",
-  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
-  requires_selling_plan: "{{variant.requires_selling_plan}}",
-  selected: {% if variant.selected %}true{% else %}false{% endif %},
-  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
-  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
-  sku: "{{variant.sku}}",
-  store_availabilities: "{{variant.store_availabilities}}",
-  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
-  title: "{{variant.title}}",
-  unit_price: "{{variant.unit_price}}",
-  unit_price_measurement: "{{variant.unit_price_measurement}}",
-  url: "{{variant.url}}",
-  weight: "{{variant.weight}}",
-  weight_unit: "{{variant.weight_unit}}",
-
-  },
-  variants: [
-    {% for variant in product.variants %}
-      {
-  available: "{{variant.available}}",
-  barcode: "{{variant.barcode}}",
-  compare_at_price: "{{variant.compare_at_price}}",
-  featured_media: "{{variant.featured_media}}",
-  id: "{{variant.id}}",
-  image: "{{variant.image}}",
-  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
-  inventory_management: "{{variant.inventory_management}}",
-  inventory_policy: "{{variant.inventory_policy}}",
-  inventory_quantity: "{{variant.inventory_quantity}}",
-  next_incoming_date: "{{variant.next_incoming_date}}",
-  options: "{{variant.options}}",
-  option1: "{{variant.option1}}",
-  option2: "{{variant.option2}}",
-  option3: "{{variant.option3}}",
-  price: "{{variant.price}}",
-  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
-  requires_selling_plan: "{{variant.requires_selling_plan}}",
-  selected: {% if variant.selected %}true{% else %}false{% endif %},
-  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
-  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
-  sku: "{{variant.sku}}",
-  store_availabilities: "{{variant.store_availabilities}}",
-  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
-  title: "{{variant.title}}",
-  unit_price: "{{variant.unit_price}}",
-  unit_price_measurement: "{{variant.unit_price_measurement}}",
-  url: "{{variant.url}}",
-  weight: "{{variant.weight}}",
-  weight_unit: "{{variant.weight_unit}}",
-},
-    {% endfor %}
-  ],
-
-    collections: [
-    {% for collection in product.collections %}
-      {
-  all_products_count: "{{collection.all_products_count}}",
-  all_tags: [
-    {% for tag in collection.all_tags %}
-      '{{tag}}',
-    {% endfor %}
-  ],
-  all_types: [
-    {% for type in collection.all_types %}
-      '{{type}}',
-    {% endfor %}
-  ],
-  all_vendors: "{{collection.all_vendors}}",
-  current_type: "{{collection.current_type}}",
-  current_vendor: "{{collection.current_vendor}}",
-  default_sort_by: "{{collection.default_sort_by}}",
-  description: "{{collection.description | strip_newlines | rstrip | strip | escape}}",
-  handle: "{{collection.handle}}",
-  id: "{{collection.id}}",
-  image: "{{collection.image}}",
-  next_product: "{{collection.next_product}}",
-  previous_product: "{{collection.previous_product}}",
-  products_count: "{{collection.products_count}}",
-  published_at: "{{collection.published_at}}",
-  sort_by: "{{collection.sort_by}}",
-  sort_options: [
-    {% for option in collection.sort_options %}
-      {
-      value: "{{option.value}}",
-      name: "{{option.name}}",
-    },
-    {% endfor %}
-  ],
-  template_suffix: "{{collection.template_suffix}}",
-  title: "{{collection.title}}",
-  tags: [
-    {% for tag in collection.tags %}
-      '{{tag}}',
-    {% endfor %}
-  ],
-},
-    {% endfor %}
-  ], 
-    
-  {% endif %}
-          }
-        </script>
-      
-              <script>
-          window.store.global.sectionPrefix = 'prd';
-        </script>
-      
-                        {% section 'prd-payner' %}
-                  {% section 'test' %}
-              
-      {% endif %}
-  
-
-      {% if template.name == 'index' %}
-  
-      
-              <script>
-          window['store']['index'] = {
-            
-  {% if template == 'index' %}
-    title: "Home!",
-    titties: "ok!",
-    test: "OK!",
-  {% endif %}
-          }
-        </script>
-      
-      
-      
-      {% endif %}
-  
-
-      {% if template.name == 'collection' %}
-  
-      
-              <script>
-          window['store']['collection'] = {
-            
-  {% if collection %}
-    
-  all_products_count: "{{collection.all_products_count}}",
-  all_tags: [
-    {% for tag in collection.all_tags %}
-      '{{tag}}',
-    {% endfor %}
-  ],
-  all_types: [
-    {% for type in collection.all_types %}
-      '{{type}}',
-    {% endfor %}
-  ],
-  all_vendors: "{{collection.all_vendors}}",
-  current_type: "{{collection.current_type}}",
-  current_vendor: "{{collection.current_vendor}}",
-  default_sort_by: "{{collection.default_sort_by}}",
-  description: "{{collection.description | strip_newlines | rstrip | strip | escape}}",
-  handle: "{{collection.handle}}",
-  id: "{{collection.id}}",
-  image: "{{collection.image}}",
-  next_product: "{{collection.next_product}}",
-  previous_product: "{{collection.previous_product}}",
-  products_count: "{{collection.products_count}}",
-  published_at: "{{collection.published_at}}",
-  sort_by: "{{collection.sort_by}}",
-  sort_options: [
-    {% for option in collection.sort_options %}
-      {
-      value: "{{option.value}}",
-      name: "{{option.name}}",
-    },
-    {% endfor %}
-  ],
-  template_suffix: "{{collection.template_suffix}}",
-  title: "{{collection.title}}",
-  tags: [
-    {% for tag in collection.tags %}
-      '{{tag}}',
-    {% endfor %}
-  ],
-
-    products: [
-    {% for product in collection.products %}
-      {
-  available: "{{product.available | escape}}",
-  compare_at_price: "{{product.compare_at_price | escape}}",
-  compare_at_price_max: {{product.compare_at_price_max | escape}},
-  compare_at_price_min: {{product.compare_at_price_min | escape}},
-  compare_at_price_varies: {{product.compare_at_price_varies | escape}},
-  content: "{{product.content | strip_newlines | rstrip | strip | escape}}",
-  created_at: "{{product.created_at | escape}}",
-  description: "{{product.description | strip_newlines | rstrip | strip | escape}}",
-  featured_image: "{{product.featured_image}}",
-  featured_media: "{{product.featured_media}}",
-  handle: "{{product.handle}}",
-  has_only_default_variant: "{{product.has_only_default_variant}}",
-  id: "{{product.id}}",
-  images: "{{product.images}}",
-  media: "{{product.media}}",
-  options: [
-    {% for option in product.options %}
-      '{{option}}',
-    {% endfor %}
-  ],
-  options_by_name: {
-    {% for option in product.options %}
-      '{{option}}': [
-    {% for _option in product.options_by_name[{{option}}].values %}
-      '{{_option}}',
-    {% endfor %}
-  ],
-    {% endfor %}
-  },
-  options_with_values: [
-    {% for product_option in product.product.options_with_values %}
-      {
-      name: product_option.name,
-      values: [
-    {% for value in product_option.values %}
-      '{{value}}',
-    {% endfor %}
-  ],
-    },
-    {% endfor %}
-  ],
-  price: {{product.price}},
-  price_max: {{product.price_max}},
-  price_min: {{product.price_min}},
-  price_varies: {{product.price_varies}},
-  published_at: "{{product.published_at}}",
-  requires_selling_plan: "{{product.requires_selling_plan}}",
-  selected_variant: "{{product.selected_variant}}",
-  selected_of_first_available_selling_plan_allocation: "{{product.selected_of_first_available_selling_plan_allocation}}",
-  selected_selling_plan: "{{product.selected_selling_plan}}",
-  selected_selling_plan_allocation: "{{product.selected_selling_plan_allocation}}",
-  selling_plan_groups: "{{product.selling_plan_groups}}",
-  tags: [
-    {% for tag in product.tags %}
-      '{{tag}}',
-    {% endfor %}
-  ],
-  template_suffix: "{{product.template_suffix}}",
-  title: "{{product.title}}",
-  type: "{{product.type}}",
-  url: "{{product.url}}",
-  variants: "{{product.variants}}",
-  first_available_variant: {
-    {% assign variant = product.first_available_variant %}
-    
-  available: "{{variant.available}}",
-  barcode: "{{variant.barcode}}",
-  compare_at_price: "{{variant.compare_at_price}}",
-  featured_media: "{{variant.featured_media}}",
-  id: "{{variant.id}}",
-  image: "{{variant.image}}",
-  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
-  inventory_management: "{{variant.inventory_management}}",
-  inventory_policy: "{{variant.inventory_policy}}",
-  inventory_quantity: "{{variant.inventory_quantity}}",
-  next_incoming_date: "{{variant.next_incoming_date}}",
-  options: "{{variant.options}}",
-  option1: "{{variant.option1}}",
-  option2: "{{variant.option2}}",
-  option3: "{{variant.option3}}",
-  price: "{{variant.price}}",
-  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
-  requires_selling_plan: "{{variant.requires_selling_plan}}",
-  selected: {% if variant.selected %}true{% else %}false{% endif %},
-  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
-  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
-  sku: "{{variant.sku}}",
-  store_availabilities: "{{variant.store_availabilities}}",
-  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
-  title: "{{variant.title}}",
-  unit_price: "{{variant.unit_price}}",
-  unit_price_measurement: "{{variant.unit_price_measurement}}",
-  url: "{{variant.url}}",
-  weight: "{{variant.weight}}",
-  weight_unit: "{{variant.weight_unit}}",
-
-  },
-  selected_or_first_available_variant: {
-    {% assign variant = product.selected_or_first_available_variant %}
-    
-  available: "{{variant.available}}",
-  barcode: "{{variant.barcode}}",
-  compare_at_price: "{{variant.compare_at_price}}",
-  featured_media: "{{variant.featured_media}}",
-  id: "{{variant.id}}",
-  image: "{{variant.image}}",
-  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
-  inventory_management: "{{variant.inventory_management}}",
-  inventory_policy: "{{variant.inventory_policy}}",
-  inventory_quantity: "{{variant.inventory_quantity}}",
-  next_incoming_date: "{{variant.next_incoming_date}}",
-  options: "{{variant.options}}",
-  option1: "{{variant.option1}}",
-  option2: "{{variant.option2}}",
-  option3: "{{variant.option3}}",
-  price: "{{variant.price}}",
-  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
-  requires_selling_plan: "{{variant.requires_selling_plan}}",
-  selected: {% if variant.selected %}true{% else %}false{% endif %},
-  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
-  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
-  sku: "{{variant.sku}}",
-  store_availabilities: "{{variant.store_availabilities}}",
-  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
-  title: "{{variant.title}}",
-  unit_price: "{{variant.unit_price}}",
-  unit_price_measurement: "{{variant.unit_price_measurement}}",
-  url: "{{variant.url}}",
-  weight: "{{variant.weight}}",
-  weight_unit: "{{variant.weight_unit}}",
-
-  },
-  variants: [
-    {% for variant in product.variants %}
-      {
-  available: "{{variant.available}}",
-  barcode: "{{variant.barcode}}",
-  compare_at_price: "{{variant.compare_at_price}}",
-  featured_media: "{{variant.featured_media}}",
-  id: "{{variant.id}}",
-  image: "{{variant.image}}",
-  incoming: {% if variant.incoming %}true{% else %}false{% endif %},
-  inventory_management: "{{variant.inventory_management}}",
-  inventory_policy: "{{variant.inventory_policy}}",
-  inventory_quantity: "{{variant.inventory_quantity}}",
-  next_incoming_date: "{{variant.next_incoming_date}}",
-  options: "{{variant.options}}",
-  option1: "{{variant.option1}}",
-  option2: "{{variant.option2}}",
-  option3: "{{variant.option3}}",
-  price: "{{variant.price}}",
-  requires_shipping: {% if variant.requires_shipping %}true{% else %}false{% endif %},
-  requires_selling_plan: "{{variant.requires_selling_plan}}",
-  selected: {% if variant.selected %}true{% else %}false{% endif %},
-  selected_selling_plan_allocation: "{{variant.selected_selling_plan_allocation}}",
-  selling_plan_allocations: "{{variant.selling_plan_allocations}}",
-  sku: "{{variant.sku}}",
-  store_availabilities: "{{variant.store_availabilities}}",
-  taxable: {% if variant.taxable %}true{% else %}false{% endif %},
-  title: "{{variant.title}}",
-  unit_price: "{{variant.unit_price}}",
-  unit_price_measurement: "{{variant.unit_price_measurement}}",
-  url: "{{variant.url}}",
-  weight: "{{variant.weight}}",
-  weight_unit: "{{variant.weight_unit}}",
-},
-    {% endfor %}
-  ],
-},
-    {% endfor %}
-  ],
-  {% endif %}
-          }
-        </script>
+        </script> 
       
       
       
@@ -1308,5 +1308,5 @@ This file is auto-generated in webpack.
 
 {% endcapture %}
 
-  {{ store_data | strip_newlines | rstrip | strip }}
+  {{ store_data }}
 
