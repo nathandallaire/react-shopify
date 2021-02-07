@@ -1,0 +1,21 @@
+
+<script>
+  window.store.forms = {
+    customer_login: '{% form 'customer_login' %}{% endform %}',
+    contact: '{% form 'contact' %}{% endform %}',
+    article: '{% form 'article' %}{% endform %}',
+    new_comment: '{% form 'new_comment', article %}{% endform %}',
+    storefront_password: '{% form 'storefront_password' %}{% endform %}',
+    activate_customer_password: '{% form 'activate_customer_password' %}{% endform %}',
+    customer_address: '{% form 'customer_address', customer.new_address %}{% endform %}',
+    customer_address: '{% form 'customer_address', address %}{% endform %}',
+    customer_login: '{% form 'customer_login' %}{% endform %}',
+    customer: '{% form 'customer' %}{% endform %}',
+    guest_login: '{% form 'guest_login' %}{% endform %}',
+    recover_customer_password: '{% form 'recover_customer_password' %}{% endform %}',
+    create_customer: '{% form 'create_customer' %}{% endform %}',
+    reset_customer_password: '{% form 'reset_customer_password' %}{% endform %}',
+    currency: '{% form 'currency' %}{% endform %}',
+    product: '{% form 'product' %}{% endform %}',
+  };
+</script>

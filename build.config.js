@@ -23,7 +23,7 @@ const configuration = {
   themeConfigFolder: `${THEME_FOLDER}/config`,
   snippetsToRegister: ["test-snippet"],
   snippetReferencesFilename: "snippet-references.liquid",
-  pageDataFilename: "page-data.liquid",
+  pageDataFilename: "head-page-data.liquid",
   /* ====================
   Data settings
   ==================== */

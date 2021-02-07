@@ -15,7 +15,7 @@ const data = `
   id: "{{article.id}}",
   image: "{{article.image}}",
   moderated: "{{article.moderated}}",
-  published_at: "{{article.published_at}}",
+  published_at: "{{article.published_at}}", 
   ${dataForEach({
     key: "tags",
     obj: "tag",

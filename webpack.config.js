@@ -62,6 +62,7 @@ module.exports = async (env, argv) => {
     devServer: {
       disableHostCheck: true,
       contentBase: path.resolve(__dirname, distFolder),
+      host: "localhost",
       port,
       after: () => {
         //Initial on-change listener
@@ -86,6 +87,17 @@ module.exports = async (env, argv) => {
         {
           test: /\.liquid$/i,
           use: "raw-loader",
+        },
+        {
+          test: /.(jpg|jpeg|png|gif|mp3|svg)$/,
+          use: [
+            {
+              loader: "file-loader",
+              options: {
+                name: "[path][name]-[hash:8].[ext]",
+              },
+            },
+          ],
         },
         {
           test: /\.[jt]sx?$/,
