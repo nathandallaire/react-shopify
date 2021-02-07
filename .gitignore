@@ -1,4 +1,7 @@
 node_modules
 dist
 theme/config.yml
+theme/config/settings_data.json
 .env
+.vscode
+.DS_Store

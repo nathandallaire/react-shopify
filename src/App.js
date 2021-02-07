@@ -1,6 +1,4 @@
 import React, { Suspense } from "react";
-//import { Snippet } from "./util/liquid";
-//import { formatMoney } from "./util/shopify";
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import "./styles.scss";
@@ -12,11 +10,11 @@ const AnotherComponent = React.lazy(() => import("./OtherComponent2"));
 function MyComponent() {
   return (
     <div>
-      <h1>Tewwes?ewfwewet!!</h1>
+      <h1>Tewwes?!!</h1>
       <ContactForm />
       <Suspense fallback={<div>Loae!erwewdwewweingew</div>}>
         <section>
-          <div style={{ width: 40 }}>{/* <Snippet snippet="arrow" /> */}</div>
+          <div style={{ width: 40 }}></div>
           <OtherComponent />
           <AnotherComponent />
         </section>
