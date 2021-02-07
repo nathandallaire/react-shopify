@@ -1,16 +1,14 @@
 
 
   <script>
-    /* 1612659048201 */
+    /* 1612657423156 */
 
     if (!window.store.sections) window.store.sections = {};
 
-    var sectionKey = '{{section.id}}';
+    var sectionKey = 'slider2__{{section.id}}';
 
     window.store.sections[sectionKey] = {
       settings: {
-        section: 'slider2',
-        id: '{{section.id}}',
                   'enabled': {{ section.settings.enabled }},
               },
       blocks: {
@@ -50,12 +48,6 @@
 {% schema %}    
       {
   "name": "slider2",
-  "presets": [
-    {
-      "name": "Slider 2",
-      "category": "images"
-    }
-  ],
   "settings": [
     {
       "type": "checkbox",

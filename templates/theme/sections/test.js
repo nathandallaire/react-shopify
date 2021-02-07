@@ -2,10 +2,10 @@ const sectionCategoryKeys = require("../../page_data/section_category_keys");
 const pageKeys = require("../../page_data/page_keys");
 
 const schema = {
-  name: "Slider",
+  name: "slider2",
   presets: [
     {
-      name: "Slider",
+      name: "Slider 2",
       category: sectionCategoryKeys.IMAGES,
     },
   ],

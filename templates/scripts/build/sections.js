@@ -143,13 +143,13 @@ const buildSection = async (options) => {
 
       pageConfig.sections.forEach(async (sectionObject) => {
         if (sectionNameWithoutExt !== sectionObject.section) return;
-        if (sectionObject.global) return;
+        if (!sectionObject.as) return;
         if (!pageConfig.sectionPrefix)
           return console.log(`No sectionPrefix for template ${pageConfig.key}`);
 
         const filename = getSectionName(
           pageConfig.sectionPrefix,
-          sectionObject.section
+          sectionObject.as ? sectionObject.as : sectionObject.section
         );
         await writeToFile(filename, false);
       });
@@ -173,7 +173,7 @@ const buildPageSpecificSections = async (pageTemplate) => {
 
   pageObject.sections.forEach(async (sectionObject) => {
     //Section prefix required check if not global
-    if (!sectionObject.global && !pageObject.sectionPrefix) {
+    if (sectionObject.as && !pageObject.sectionPrefix) {
       console.log(
         `No sectionPrefix supplied for ${pageObject.key} when requesting page-specific section`
       );
@@ -181,12 +181,12 @@ const buildPageSpecificSections = async (pageTemplate) => {
     }
 
     //If page-specific, create
-    if (!sectionObject.global) {
+    if (sectionObject.as) {
       await buildSection({
         sectionName: `${sectionObject.section}.js`,
         outputName: getSectionName(
           pageObject.sectionPrefix,
-          sectionObject.section
+          sectionObject.as ? sectionObject.as : sectionObject.section
         ),
         buildForTemplate: pageTemplate,
       });

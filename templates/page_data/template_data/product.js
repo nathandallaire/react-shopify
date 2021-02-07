@@ -21,10 +21,11 @@ const data = `
 const config = {
   key: page_keys.PRODUCT,
   data,
-  sectionPrefix: "1xv",
+  sectionPrefix: "prd",
   sections: [
     {
       section: "slider",
+      as: "payner",
     },
     {
       section: "test",

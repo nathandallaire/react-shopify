@@ -6,10 +6,12 @@
 
     if (!window.store.sections) window.store.sections = {};
 
-    var sectionKey = '--it.config.name--__{{section.id}}';
+    var sectionKey = '{{section.id}}';
 
     window.store.sections[sectionKey] = {
       settings: {
+        section: '--it.config.name--',
+        id: '{{section.id}}',
         --@each(it.config.settings) => setting--
           '--setting.id--': --setting.data | safe--,
         --/each--

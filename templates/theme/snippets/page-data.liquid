@@ -10,26 +10,40 @@ This file is auto-generated in webpack.
 {% capture store_data %}
 
 --@each(it.configArray) => config, index--
- 
-  --@if (config.externalScripts)--
-    --@each(config.externalScripts) => scriptSrc, index--
-      <script src="--scriptSrc--"></script>
-    --/each--
-  -- /if--
 
-  --@if (config.data)--
-    <script>
-      window['--it.windowPageDataKey--']['--config.key--'] = {
-        --config.data | safe--
-      }
-    </script>
-  -- /if--
+  -- @if (it.page_keys.GLOBAL !== config.key) --
+    {% if template.name == '--config.key--' %}
+  -- /if --
 
-  --@if (config.sectionList)--
-    --@each(config.sectionList) => section--
-      {% section '--section--' %}
-    --/each--
-  -- /if--
+      --@if (config.externalScripts)--
+        --@each(config.externalScripts) => scriptSrc, index--
+          <script src="--scriptSrc--"></script>
+        --/each--
+      -- /if--
+
+      --@if (config.data)--
+        <script>
+          window['--it.windowPageDataKey--']['--config.key--'] = {
+            --config.data | safe--
+          }
+        </script> 
+      -- /if--
+
+      -- @if (config.sectionPrefix) --
+        <script>
+          window.store.global.sectionPrefix = '--config.sectionPrefix--';
+        </script>
+      -- /if --
+
+      --@if (config.sectionList)--
+        --@each(config.sectionList) => section--
+          {% section '--section--' %}
+        --/each--
+      -- /if--
+
+  -- @if (it.page_keys.GLOBAL !== config.key) --
+    {% endif %}
+  -- /if --
 
 --/each--
 

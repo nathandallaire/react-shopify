@@ -8,7 +8,7 @@ const pageDataSchema = Joi.object({
   sections: Joi.array().items(
     Joi.object({
       section: Joi.string().required(),
-      global: Joi.boolean(),
+      as: Joi.string().max(11).min(2),
     })
   ),
 }).required();

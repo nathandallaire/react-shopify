@@ -51,15 +51,15 @@ const getPageSectionsArray = (options) => {
   if (!pageConfig.sections && !pageConfig.sectionPrefix) return;
 
   pageConfig.sections.forEach((sectionObject) => {
-    if (sectionObject.global && ignoreGlobal) return;
+    if (!sectionObject.as && ignoreGlobal) return;
     if (specificSection) {
       if (sectionObject.section !== getFilenameWithoutExt(specificSection))
         return;
     }
 
     let outputFilename = getSectionName(
-      sectionObject.global ? undefined : pageConfig.sectionPrefix,
-      sectionObject.section
+      !sectionObject.as ? undefined : pageConfig.sectionPrefix,
+      sectionObject.as ? sectionObject.as : sectionObject.section
     );
 
     pageSpecificBuilds.push(outputFilename);
