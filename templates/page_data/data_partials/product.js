@@ -11,8 +11,8 @@ const data = `
   content: "{{product.content | strip_newlines | rstrip | strip | escape}}",
   created_at: "{{product.created_at | escape}}",
   description: "{{product.description | strip_newlines | rstrip | strip | escape}}",
-  featured_image: "{{product.featured_image}}",
-  featured_media: "{{product.featured_media}}",
+  featured_image: "{{product.featured_image | img_url:'master' }}",
+  featured_media: "{{product.featured_media | img_url:'master'}}",
   handle: "{{product.handle}}",
   has_only_default_variant: "{{product.has_only_default_variant}}",
   id: "{{product.id}}",
@@ -22,7 +22,7 @@ const data = `
     key: "options",
     obj: "option",
     arr: "product.options",
-    data: `{{option}}`,
+    data: `{{option | escape}}`,
     eachType: "STR",
   })}
   options_by_name: {
@@ -31,7 +31,7 @@ const data = `
         key: "'{{option}}'",
         obj: "_option",
         arr: "product.options_by_name[{{option}}].values",
-        data: `{{_option}}`,
+        data: `{{_option | escape}}`,
         eachType: "STR",
       })}
     {% endfor %}
@@ -41,12 +41,12 @@ const data = `
     obj: "product_option",
     arr: "product.product.options_with_values",
     data: `
-      name: product_option.name,
+      name: "{{product_option.name | escape}}",
       ${dataForEach({
         key: "values",
         obj: "value",
         arr: "product_option.values",
-        data: `{{value}}`,
+        data: `{{value | escape}}`,
         eachType: "STR",
       })}
     `,
@@ -57,24 +57,23 @@ const data = `
   price_min: {{product.price_min}},
   price_varies: {{product.price_varies}},
   published_at: "{{product.published_at}}",
-  requires_selling_plan: "{{product.requires_selling_plan}}",
+  requires_selling_plan: "{{product.requires_selling_plan | escape}}",
   selected_variant: "{{product.selected_variant}}",
   selected_of_first_available_selling_plan_allocation: "{{product.selected_of_first_available_selling_plan_allocation}}",
-  selected_selling_plan: "{{product.selected_selling_plan}}",
-  selected_selling_plan_allocation: "{{product.selected_selling_plan_allocation}}",
-  selling_plan_groups: "{{product.selling_plan_groups}}",
+  selected_selling_plan: "{{product.selected_selling_plan | escape}}",
+  selected_selling_plan_allocation: "{{product.selected_selling_plan_allocation | escape}}",
+  selling_plan_groups: "{{product.selling_plan_groups | escape}}",
   ${dataForEach({
     key: "tags",
     obj: "tag",
     arr: "product.tags",
-    data: "{{tag}}",
+    data: "{{tag | escape}}",
     eachType: "STR",
   })}
-  template_suffix: "{{product.template_suffix}}",
-  title: "{{product.title}}",
-  type: "{{product.type}}",
-  url: "{{product.url}}",
-  variants: "{{product.variants}}",
+  template_suffix: "{{product.template_suffix | escape}}",
+  title: "{{product.title | escape}}",
+  type: "{{product.type | escape}}",
+  url: "{{product.url | escape}}",
   first_available_variant: {
     {% assign variant = product.first_available_variant %}
     ${variantDataPartial}

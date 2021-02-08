@@ -23,20 +23,17 @@ const getUrlString = (data) => {
 
 // Submit data via Fetch
 export const submitForm = async (action, inputs) => {
-  new Promise(async (resolve, reject) => {
-    fetch(action, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
-      },
-      body: getUrlString(formToJSON(inputs)),
-    })
-      .then(function (response) {
-        resolve(response);
-      })
-      .catch(function (error) {
-        reject(error);
-      });
+  const body = encodeURIComponent(getUrlString(formToJSON(inputs)));
+
+  console.log(action);
+  console.log(body);
+
+  return fetch(action, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Accept: "application/json",
+    },
+    body,
   });
 };

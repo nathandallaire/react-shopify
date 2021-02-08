@@ -1,5 +1,11 @@
 {
   "welcome": {
-    "title": "Welcome to the website"
+    "title": "welcome to the website!"
+  },
+  "collections": {
+    "title": "The title is ${title}"
+  },
+  "global": {
+    "title": "Globaltitle"
   }
 }

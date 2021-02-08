@@ -4,19 +4,6 @@ import Form from "./Form";
 const ContactForm = () => {
   return (
     <Form type="contact">
-      <div className="five columns alpha">
-        <label htmlFor="contactFormName">
-          Name<span className="red">*</span>
-        </label>
-        <input
-          type="text"
-          id="contactFormName"
-          name="contact[Name]"
-          placeholder="Name"
-          autoCapitalize="words"
-          required="required"
-        />
-      </div>
       <div className="five columns omega">
         <label htmlFor="contactFormEmail">
           Email <span className="red">*</span>
@@ -24,7 +11,7 @@ const ContactForm = () => {
         <input
           type="email"
           id="contactFormEmail"
-          name="contact[Email]"
+          name="contact[email]"
           placeholder="Email"
           autoCorrect="off"
           autoCapitalize="off"
@@ -38,7 +25,7 @@ const ContactForm = () => {
       <textarea
         rows="5"
         id="contactFormMessage"
-        name="contact[Body]"
+        name="contact[body]"
         placeholder="Message"
         required="required"
       ></textarea>

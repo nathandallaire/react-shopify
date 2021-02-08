@@ -6,7 +6,6 @@ const lineItemDataPartial = require("./line_item");
 
 const data = `
   attributes: {{cart.attributes | json}},
-  cart_level_discount_applications: "{{cart.cart_level_discount_applications}}",
   ${dataForEach({
     key: "cart_level_discount_applications",
     obj: "discount_application",

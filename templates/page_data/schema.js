@@ -5,6 +5,7 @@ const pageDataSchema = Joi.object({
   externalScripts: Joi.array(),
   data: Joi.string(),
   sectionPrefix: Joi.string().max(3),
+  lang: Joi.array(),
   sections: Joi.array().items(
     Joi.object({
       section: Joi.string().required(),

@@ -5,6 +5,7 @@ import { submitForm } from "./helper";
 const Form = ({ type, children }) => {
   const [hiddenForm, setHiddenForm] = useState("<div></div>");
   const [formAttributes, setFormAttributes] = useState(null);
+  const [formChildren, setFormChildren] = useState(null);
   const hiddenFormWrapperRef = useRef();
   const formRef = useRef();
 
@@ -24,8 +25,10 @@ const Form = ({ type, children }) => {
 
       try {
         const response = await submitForm(action, inputs);
+        console.log("response");
         console.log(response);
       } catch (err) {
+        console.log("err");
         console.log(err);
       }
     },
@@ -37,6 +40,8 @@ const Form = ({ type, children }) => {
 
     new MutationObserver(() => {
       const form = hiddenFormWrapperRef.current.querySelector("form");
+      const children = form.innerHTML;
+      setFormChildren(children);
 
       function camelize(str) {
         return str
@@ -57,7 +62,7 @@ const Form = ({ type, children }) => {
         setFormAttributes(attributes);
       }
     }).observe(hiddenFormWrapperRef.current, { childList: true });
-  }, [hiddenFormWrapperRef, setFormAttributes]);
+  }, [hiddenFormWrapperRef, setFormAttributes, setFormChildren]);
 
   return (
     <div>
@@ -71,6 +76,9 @@ const Form = ({ type, children }) => {
       )}
 
       <form ref={formRef} onSubmit={handleSubmit} {...formAttributes}>
+        {formChildren && (
+          <div dangerouslySetInnerHTML={{ __html: formChildren }} />
+        )}
         {children}
       </form>
     </div>

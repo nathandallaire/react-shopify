@@ -10,7 +10,7 @@ const data = `
       key: "all_tags",
       obj: "tag",
       arr: "blog.all_tags",
-      data: "{{tag}}",
+      data: "{{tag | escape}}",
       eachType: "STR",
     })}
     ${dataForEach({
@@ -27,17 +27,17 @@ const data = `
     handle: "{{blog.handle}}",
     id: "{{blog.id | escape}}",
     moderated: "{{blog.moderated}}",
-    next_article: "{{blog.next_article}}",
-    previous_article: "{{blog.previous_article}}",
+    next_article: "{{blog.next_article | escape}}",
+    previous_article: "{{blog.previous_article | escape}}",
     ${dataForEach({
       key: "tags",
       obj: "tag",
       arr: "blog.tags",
-      data: "{{tag}}",
+      data: "{{tag | escape}}",
       eachType: "STR",
     })}
-    title: "{{blog.title}}",
-    url: "{{blog.url}}",
+    title: "{{blog.title | escape}}",
+    url: "{{blog.url | escape}}",
     ${paginationDataPartial}
 
   {% endpaginate %}

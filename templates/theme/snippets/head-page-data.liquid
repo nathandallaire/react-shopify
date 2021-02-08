@@ -35,6 +35,21 @@ This file is auto-generated in webpack.
         </script>
       -- /if --
 
+      --@if (config.lang)--
+        <script>
+          var currentLang = {
+            --@each(config.lang) => lang--      
+              -- lang | replace('.', '_') --: "{{ '--lang--' | t | escape | strip_newlines }}",
+            --/each--
+          };
+
+          var prevLang = window['--it.windowPageDataKey--'].lang || {};
+          var mergedLang = Object.assign(prevLang, currentLang);
+
+          window['--it.windowPageDataKey--'].lang = mergedLang;
+        </script>
+      -- /if--
+
       --@if (config.sectionList)--
         --@each(config.sectionList) => section--
           {% section '--section--' %}

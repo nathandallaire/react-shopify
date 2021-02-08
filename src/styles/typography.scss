@@ -1,0 +1,26 @@
+/* prettier-ignore */
+$typography-system: (
+  
+);
+
+// Setup every font size, line height and letter spacing for all resolutions in a single mixin
+// @example scss Input
+//   .className {
+//     @include font-style(pressArea, h1)
+//   }
+//   .className {
+//     @include font-style(pressArea, p1)
+//     font-weight: 700; // if needed
+//   }
+@mixin font-style($key-name, $element) {
+  @if (map-has-key($typography-system, $key-name)) {
+    $key: map-get(
+      $typography-system,
+      $key-name
+    ); // get the object from $typography
+
+    @if (map-has-key($key, $element)) {
+      @include font-size(map-get($key, $element)...);
+    }
+  }
+}

@@ -17,6 +17,7 @@ const configuration = {
   ==================== */
   themeFolder: THEME_FOLDER,
   themeAssetsFolder: `${THEME_FOLDER}/assets`,
+  themeLocalesFolder: `${THEME_FOLDER}/locales`,
   themeSnippetsFolder: `${THEME_FOLDER}/snippets`,
   themeLayoutFolder: `${THEME_FOLDER}/layout`,
   themeSectionsFolder: `${THEME_FOLDER}/sections`,

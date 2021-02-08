@@ -2,6 +2,7 @@ const chokidar = require("chokidar");
 const path = require("path");
 const buildTheme = require("./build/theme.liquid.js");
 const buildSnippetReferences = require("./build/snippet-references.liquid.js");
+const { buildLocale } = require("./build/locales.js");
 const { buildPageData } = require("./build/page-data.liquid.js");
 const {
   buildSection,
@@ -89,12 +90,29 @@ const watchSectionsChange = () => {
   chokidar.watch(watchPath).on("change", handleUpdate);
 };
 
+//Sections template changes handler
+const watchLocalesChange = () => {
+  const watchPath = path.resolve(__dirname, "../theme/locales");
+
+  const handleUpdate = async (filePath) => {
+    const localeName = getFilenameFromPath(filePath);
+    const localeNameWithoutExtension = localeName
+      .split(".")
+      .slice(0, -1)
+      .join(".");
+    buildLocale(localeNameWithoutExtension);
+  };
+
+  chokidar.watch(watchPath).on("change", handleUpdate);
+};
+
 //All watchers initialize
 const onFilechangeHandler = () => {
   watchThemeTemplateChanges();
   watchPageDataChanges();
   watchPageTemplateDataChanges();
   watchSectionsChange();
+  watchLocalesChange();
 };
 
 module.exports = onFilechangeHandler;

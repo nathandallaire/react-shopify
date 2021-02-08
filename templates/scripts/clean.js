@@ -4,6 +4,7 @@ const {
   themeSnippetsFolder,
   themeLayoutFolder,
   themeConfigFolder,
+  themeLocalesFolder,
   bundleNamePrefix,
   snippetReferencesFilename,
   pageDataFilename,
@@ -82,6 +83,25 @@ const cleanSettingsSchema = async () => {
   await removeSpecificFile(pathname);
 };
 
+//Clean locales.json
+const cleanLocales = async () => {
+  try {
+    await fs
+      .readdirSync(`./${themeLocalesFolder}`)
+      .forEach(async (fileName) => {
+        try {
+          await fs.unlinkSync(`./${themeAssetsFolder}/${fileName}`);
+        } catch (err) {
+          console.error(err);
+          process.exit(1);
+        }
+      });
+  } catch (err) {
+    console.error(err);
+    process.exit(1);
+  }
+};
+
 //Clean all
 const cleanAll = async () => {
   try {
@@ -90,6 +110,7 @@ const cleanAll = async () => {
     await cleanSections();
     await cleanAssets();
     await cleanSettingsSchema();
+    await cleanLocales();
 
     console.log("\x1b[32m%s\x1b[0m", "🍆 Cleaned assets!");
   } catch (err) {

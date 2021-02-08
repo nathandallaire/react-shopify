@@ -93,9 +93,12 @@ const buildSection = async (options) => {
 
       const filePathname = `${themeSectionsFolder}/${filenameOutput}.liquid`;
 
-      await fs.writeFileSync(`./${filePathname}`, injectedTemplate);
-
-      builtConsoleLog(filePathname);
+      try {
+        await fs.writeFileSync(`./${filePathname}`, injectedTemplate);
+        builtConsoleLog(filePathname);
+      } catch (err) {
+        console.log(err);
+      }
     };
 
     const filename = `${sectionNameWithoutExt}`;

@@ -1,0 +1,79 @@
+@import "layout.scss";
+
+// Variables
+//
+// Add global variables here, color palette, those variables shared by components all applied to global styling
+
+// ====================================================================
+// Breakpoints
+//
+// Window breakpoints
+// ====================================================================
+$layout-mobile: map-get($layout, mobile) + px;
+$layout-tablet: map-get($layout, tablet) + px;
+$layout-desktopSm: map-get($layout, desktopSm) + px;
+$layout-desktopMd: map-get($layout, desktopMd) + px;
+$layout-desktopLg: map-get($layout, desktopLg) + px;
+
+// ====================================================================
+// Base palette
+//
+// Grayscale and brand colors for use across the site.
+// ====================================================================
+$white: #fff;
+$black: #000;
+
+// ====================================================================
+// General
+//
+// Global color variables, used usually in sections
+// Global variables used across the web app
+// ====================================================================
+$page-bg-color: $white;
+$element-shadow: 0 16px 16px 0 rgba(0, 0, 0, 0.04);
+$generic-fonts: Helvetica, Arial, sans-serif;
+$page-gutter: px(60);
+
+// ====================================================================
+// Nav bar
+// ====================================================================
+$navbar-height-mobile: 6rem;
+$navbar-height-desktop: 8rem;
+
+// ====================================================================
+// List of z-index element
+// ====================================================================
+$elements: pages, main-nav, page-wrapper, broadcast-loading-spinner,
+  meet-roam-intro-section, page-logo, sticky-nav, timeline-twitter-card,
+  hovered-segment-point, twitter-drawer, rotate;
+
+// ====================================================================
+// Registration page
+// ====================================================================
+$registration-input-width: px(230);
+
+// ====================================================================
+// Twitter card
+// ====================================================================
+$timeline-twitter-card-width: px(250);
+
+// ====================================================================
+// Twitter Drawer
+// ====================================================================
+$twitter-drawer-width: px(305);
+$twitter-drawer-animation-duration: 0.6s;
+$twitter-drawer-padding: px(20);
+
+// ====================================================================
+// Press and product pages
+// ====================================================================
+$grid-max-width: px(1800);
+$page-padding-left: px(300);
+$page-gutter: px(60);
+$grid-columns: 12;
+$grid-gutter: px(20);
+
+// ====================================================================
+// Press Twitter Carousel
+// ====================================================================
+$overlap-amount: px(57);
